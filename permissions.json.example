@@ -1,0 +1,12 @@
+{
+	"global":{
+		"hehe": false,
+		"eval": false
+	},
+	"users":{
+		"104374046254186496":{
+			"hehe": true,
+			"eval": true
+		}
+	}
+}
