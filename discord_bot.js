@@ -547,6 +547,34 @@ var commands = {
                 }
             })
         }
+    },
+    "github": {
+        description: "links the github page for those wanting to fucking CRY at my terrible practices",
+        process: function(bot, msg) {
+            bot.sendMessage(msg.channel, "Welp, it's your funeral~\nhttps://github.com/NightmareX91/HoloBot")
+        }
+    },
+    "dev": {
+        description: "who's the developer of this weebshit bot?",
+        process: function(bot, msg) {
+            bot.sendMessage(msg.channel, "meanwhile is responsible for my development, but it couldn't have been done without chalda and steamingmutt!~")
+            bot.sendMessage(msg.channel, "If you want to complain about something, bitch at meanwhile please!~")
+        }
+    },
+    "restart": {
+        description: "quick restart command for meanwhile",
+        process: function(bot, msg) {
+            if (Permissions.checkPermission(msg.author, "hehe")) {
+                bot.sendMessage(msg.channel, "Restarting! I won't be long!~")
+                setTimeout(function(){
+                    process.exit(1)
+                }, 500)
+            }
+            else {
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to restart me!~")
+                return
+            }
+        }
     }
 }
 
@@ -604,7 +632,7 @@ function capitalizeFirstLetter(string) {
 var bot = new Discord.Client();
 
 bot.on("ready", function () {
-    console.log("Ready to begin! Serving in " + bot.channels.length + " channels");
+    console.log("Ready to begin! Serving in " + bot.channels.length + " channels~");
     load_plugins();
 });
 
