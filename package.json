@@ -1,5 +1,5 @@
 {
-  "name": "DiscordBot",
+  "name": "HoloBot",
   "version": "0.1.1",
   "description": "Bot for Discord app",
   "readme": "README.md",
@@ -7,7 +7,7 @@
   "author": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chalda/DiscordBot.git"
+    "url": "git+https://github.com/NightmareX91/HoloBot.git"
   },
   "license": "GNU",
   "dependencies": {
