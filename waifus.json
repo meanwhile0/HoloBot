@@ -6,7 +6,7 @@
         "rating": 9
     },
     "davidn64": {
-        "rating": 8
+        "rating": 1
     },
     "john cena": {
         "rating": 2
@@ -190,5 +190,29 @@
     },
     "ruri": {
         "rating": 1
+    },
+    "mr.brown": {
+        "rating": 3
+    },
+    "🍕 pizzabot 🍕": {
+        "rating": 4
+    },
+    "🍕pizzabot🍕": {
+        "rating": 8
+    },
+    "pineapple pizza": {
+        "rating": 2
+    },
+    "_pai": {
+        "rating": 8
+    },
+    "dio": {
+        "rating": 1
+    },
+    "cheeserino zepepperoni": {
+        "rating": 7
+    },
+    "maxofs2d": {
+        "rating": 9
     }
 }
