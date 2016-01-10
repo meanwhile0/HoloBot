@@ -11,7 +11,7 @@ Once you have node installed running `npm install` from the bot directory should
 
 ## Windows Users
 Please note that you must have a working C compiler and Python in your path for
-`npm install` to work. The bot has been tested to work on Windows using Visual Studio 2015 Community and Python 2.7, except for `!pullanddeploy`.
+`npm install` to work. The bot has been tested to work on Windows using Visual Studio 2015 Community and Python 2.7.
 * [Installing Node on Windows](http://blog.teamtreehouse.com/install-node-js-npm-windows)
 * [npm errors on Windows](http://stackoverflow.com/questions/21365714/nodejs-error-installing-with-npm)
 * [Visual Studio Community 2015](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
