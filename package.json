@@ -12,7 +12,7 @@
   "license": "GNU",
   "dependencies": {
     "cleverbot-node": "0.2.x",
-    "discord.js": "<=5.2.x",
+    "discord.js": "<=5.3.x",
     "feedparser": "1.1.x",
     "google": "1.1.x",
     "google-images": "0.1.x",

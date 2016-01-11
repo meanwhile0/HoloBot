@@ -634,6 +634,7 @@ var bot = new Discord.Client();
 bot.on("ready", function () {
     console.log("Ready to begin! Serving in " + bot.channels.length + " channels~");
     load_plugins();
+    bot.setPlayingGame("with her tail~")
 });
 
 bot.on("disconnected", function () {
