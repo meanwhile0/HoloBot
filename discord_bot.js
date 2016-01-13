@@ -78,6 +78,8 @@ var fs = require('fs');
 var aliases;
 var messagebox;
 
+var ext = [".jpg"];
+
 var commands = {
     "beep": {
         description: "responds boop, useful for checking if bot is alive",
@@ -339,8 +341,12 @@ var commands = {
                 return;
             }
 
+            console.log(msg.mentions);
+
             msg.mentions.map(function(user) {
                 var msgArray = [];
+
+                console.log("works?");
 
                 if (user.avatarURL === null) {
                     msgArray.push("Requested user: '" + user.username + "'");
@@ -593,6 +599,29 @@ var commands = {
                 bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to restart me!~");
                 return;
             }
+        }
+    },
+    "burger": {
+        description: "a burger to surpass metal gear",
+        process: function(bot, msg) {
+            var path = require("path");
+            var imgArray = [];
+
+            fs.readdir("./burgers", function(err, dirContents) {
+                for (var i = 0; i < dirContents.length; i++) {
+                    for (var o = 0; o < ext.length; o++) {
+                        if (path.extname(dirContents[i]) === ext[o]) {
+                            imgArray.push(dirContents[i]);
+                        }
+                    }
+                }
+
+                var random = Math.floor(Math.random() * ((imgArray.length + 1) - 1)) + 1;
+                    
+                bot.sendFile(msg.channel, "./burgers/" + random + ".jpg");
+
+                console.log("burger number " + random);
+            });
         }
     }
 };
