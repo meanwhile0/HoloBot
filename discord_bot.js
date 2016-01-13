@@ -650,27 +650,6 @@ function getDirectories(srcpath) {
         return fs.statSync(path.join(srcpath, file)).isDirectory();
     });
 }
-function load_plugins(){
-    var plugin_folders = getDirectories("./plugins");
-    for (var i = 0; i < plugin_folders.length; i++) {
-        var plugin;
-        try{
-            var plugin = require("./plugins/" + plugin_folders[i]);
-        } catch (err){
-            console.log("Improper setup of the '" + plugin_folders[i] +"' plugin. : " + err);
-        }
-        if (plugin){
-            if("commands" in plugin){
-                for (var j = 0; j < plugin.commands.length; j++) {
-                    if (plugin.commands[j] in plugin){
-                        commands[plugin.commands[j]] = plugin[plugin.commands[j]];
-                    }
-                }
-            }
-        }
-    }
-    console.log("Loaded " + Object.keys(commands).length + " chat commands type ~help in Discord for a commands list.");
-}
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -681,7 +660,6 @@ var bot = new Discord.Client();
 
 bot.on("ready", function () {
     console.log("Ready to begin! Serving in " + bot.channels.length + " channels~");
-    load_plugins();
     bot.setPlayingGame("with her tail~");
 });
 
