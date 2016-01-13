@@ -37,18 +37,18 @@ Permissions.checkPermission = function (user,permission){
         var allowed = false;
         try{
             if(Permissions.global.hasOwnProperty(permission)){
-                allowed = Permissions.global[permission] == true;
+                allowed = Permissions.global[permission] === true;
             }
         } catch(e){}
         try{
             if(Permissions.users[user.id].hasOwnProperty(permission)){
-                allowed = Permissions.users[user.id][permission] == true;
+                allowed = Permissions.users[user.id][permission] === true;
             }
         } catch(e){}
         return allowed;
     } catch(e){}
     return false;
-}
+};
 
 //load config data
 var Config = {};
@@ -70,9 +70,9 @@ var giphy_config = {
     "permission": ["NORMAL"]
 };
 
-var validator = require('./validator')
+var validator = require('./validator');
 
-var fs = require('fs')
+var fs = require('fs');
 
 
 var aliases;
@@ -91,7 +91,7 @@ var commands = {
     "boop": {
         description: "boop",
         process: function(bot, msg) {
-            bot.sendMessage(msg.channel, msg.sender + " eat shit~")
+            bot.sendMessage(msg.channel, msg.sender + " eat shit~");
         }
     },
     "join-server": {
@@ -113,53 +113,53 @@ var commands = {
         description: "rates the given waifu",
         process: function(bot, msg, suffix) {
             if (!suffix) {
-                bot.sendMessage(msg.channel, "But you haven't named the waifu!~")
+                bot.sendMessage(msg.channel, "But you haven't named the waifu!~");
             }
             else {
                 if (suffix.toLowerCase() == "holo") {
-                    bot.sendMessage(msg.channel, "Oh! That's me! I rate myself a... 10/10!~")
+                    bot.sendMessage(msg.channel, "Oh! That's me! I rate myself a... 10/10!~");
                 }
                 else if (suffix.toLowerCase() == "asuka") {
-                    bot.sendMessage(msg.channel, "Eugh! What a shit waifu! I rate Asuka a 0/10!~")
+                    bot.sendMessage(msg.channel, "Eugh! What a shit waifu! I rate Asuka a 0/10!~");
                 }
                 else if (suffix.toLowerCase() == "hayao" || suffix.toLowerCase() == "hayao miyazaki") {
-                    bot.sendMessage(msg.channel, "'Anime was a mistake.' - Hayao Miyazaki")
+                    bot.sendMessage(msg.channel, "'Anime was a mistake.' - Hayao Miyazaki");
                 }
                 else {
-                    var value = Math.floor(Math.random() * (10 - 1)) + 1
-                    var waifu = suffix.toLowerCase()
-                    var file = "waifus.json"
+                    var value = Math.floor(Math.random() * (10 - 1)) + 1;
+                    var waifu = suffix.toLowerCase();
+                    var file = "waifus.json";
 
-                    if (!(waifu.length <= 100)) {
-                        bot.sendMessage(msg.channel, "But that waifu name is far too long!~")
-                    }
-                    else {
+                    if (waifu.length <= 100) {
                         fs.readFile(file, "utf8", function(err, out) {
                             if (err) {
-                                throw err
+                                throw err;
                             }
 
-                            var obj = JSON.parse(out)
+                            var obj = JSON.parse(out);
 
                             if (!(waifu in obj)) {
-                                obj[waifu] = {}
-                                obj[waifu].rating = value
+                                obj[waifu] = {};
+                                obj[waifu].rating = value;
 
                                 fs.writeFile(file, JSON.stringify(obj, null, 4), function(err) {
                                     if (err) {
-                                        throw err
+                                        throw err;
                                     }
-                                    bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(waifu) + " a... " + value + "/10!~")
-                                })
+                                    bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(waifu) + " a... " + value + "/10!~");
+                                });
 
                             }
                             else {
-                                var rating = obj[waifu].rating
+                                var rating = obj[waifu].rating;
 
-                                bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(waifu) + " a... " + rating + "/10!~")
+                                bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(waifu) + " a... " + rating + "/10!~");
                             }
-                        })
-                        //bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(suffix) + " a... " + value + "/10!~")
+                        });
+                        //bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(suffix) + " a... " + value + "/10!~");
+                    }
+                    else {
+                        bot.sendMessage(msg.channel, "But that waifu name is far too long!~");
                     }
                 }
             }
@@ -169,25 +169,25 @@ var commands = {
         description: "rates the given husbando",
         process: function(bot, msg, suffix) {
             if (!suffix) {
-                bot.sendMessage(msg.channel, "You need to state your husbando~")
-                return
+                bot.sendMessage(msg.channel, "You need to state your husbando~");
+                return;
             }
 
             if (suffix.toLowerCase() == "postal") {
-                bot.sendMessage(msg.channel, "postal? You have good tastes~")
-                return
+                bot.sendMessage(msg.channel, "postal? You have good tastes~");
+                return;
             }
             else {
-                bot.sendMessage(msg.channel, "You have shit tastes.")
-                return
+                bot.sendMessage(msg.channel, "You have shit tastes.");
+                return;
             }
         }
     },
     "youtube": {
         description: "fetches a youtube video matching given tags",
         process: function(bot, msg, suffix) {
-            bot.sendMessage(msg.channel, "I found something!~")
-            youtube_plugin.respond(suffix, msg.channel, bot)
+            bot.sendMessage(msg.channel, "I found something!~");
+            youtube_plugin.respond(suffix, msg.channel, bot);
         }
     },
     "wiki": {
@@ -195,43 +195,43 @@ var commands = {
         process: function(bot, msg, suffix) {
             var query = suffix;
             if (!query) {
-                bot.sendMessage(msg.channel, "Here's how to use this command~: ~wiki search terms")
-                return
+                bot.sendMessage(msg.channel, "Here's how to use this command~: ~wiki search terms");
+                return;
             }
-            var Wiki = require('wikijs')
+            var Wiki = require('wikijs');
             new Wiki().search(query, 1).then(function(data) {
                 new Wiki().page(data.results[0]).then(function(page) {
                     page.summary().then(function(summary) {
-                        var sumText = summary.toString().split('\n')
+                        var sumText = summary.toString().split('\n');
                         var continuation = function() {
-                            var paragraph = sumText.shift()
+                            var paragraph = sumText.shift();
                             if (paragraph) {
-                                bot.sendMessage(msg.channel, "Here you go!~\n" + paragraph)
+                                bot.sendMessage(msg.channel, "Here you go!~\n" + paragraph);
                             }
-                        }
-                        continuation()
-                    })
-                })
+                        };
+                        continuation();
+                    });
+                });
             }, function(err) {
-                bot.sendMessage(msg.channel, "Woops! Error!~\n" + err)
-            })
+                bot.sendMessage(msg.channel, "Woops! Error!~\n" + err);
+            });
         }
     },
     "urbandictionary": {
         description: "fetches some shitty definition from ud",
         process: function(bot, msg, suffix) {
-            var request = require('request')
+            var request = require('request');
             request('http://api.urbandictionary.com/v0/define?term=' + suffix, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    var uD = JSON.parse(body)
+                    var uD = JSON.parse(body);
                     if (uD.result_type !== "no_results") {
-                        bot.sendMessage(msg.channel, "Here's a definition!~\n" + suffix + ": " + uD.list[0].definition + " \"" + uD.list[0].example + "\"")
+                        bot.sendMessage(msg.channel, "Here's a definition!~\n" + suffix + ": " + uD.list[0].definition + " \"" + uD.list[0].example + "\"");
                     }
                     else {
-                        bot.sendMessage(msg.channel, suffix + " is so fucked that even Urban Dictionary can't define it!~")
+                        bot.sendMessage(msg.channel, suffix + " is so fucked that even Urban Dictionary can't define it!~");
                     }
                 }
-            })
+            });
         }
     },
     "xkcd": {
@@ -280,10 +280,10 @@ var commands = {
     "hehe~": {
         description: "~hehe~",
         process: function(bot, msg) {
+            var bot_permissions = msg.channel.permissionsOf(bot.user);
             if (Permissions.checkPermission(msg.author, "hehe")) {
                 bot.sendFile(msg.channel, "./hehe.png");
                 if (msg.channel.server){
-                    var bot_permissions = msg.channel.permissionsOf(bot.user);
                     if (bot_permissions.hasPermission("manageMessages")) {
                         bot.deleteMessage(msg);
                         return;
@@ -294,8 +294,7 @@ var commands = {
                 }
             }
             else {
-                bot.sendMessage(msg.channel, "Hehe, no~")
-                var bot_permissions = msg.channel.permissionsOf(bot.user);
+                bot.sendMessage(msg.channel, "Hehe, no~");
                 if (bot_permissions.hasPermission("manageMessages")) {
                     bot.deleteMessage(msg);
                     return;
@@ -332,37 +331,38 @@ var commands = {
         description: "gets user info",
         process: function(bot, msg, suffix) {
             if (!msg.channel.server) {
-                bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~")
-                return
+                bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
+                return;
             }
             if (msg.mentions.length === 0) {
-                bot.sendMessage(msg.channel, "Please mention the user that you want to get information of~")
-                return
+                bot.sendMessage(msg.channel, "Please mention the user that you want to get information of~");
+                return;
             }
+
             msg.mentions.map(function(user) {
-                var msgArray = []
+                var msgArray = [];
 
                 if (user.avatarURL === null) {
-                    msgArray.push("Requested user: '" + user.username + "'")
-                    msgArray.push("ID: '" + user.id + "'")
-                    msgArray.push("Status: '" + user.status + "'")
-                    msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name)
-                    bot.sendMessage(msg.channel, msgArray)
-                    return
+                    msgArray.push("Requested user: '" + user.username + "'");
+                    msgArray.push("ID: '" + user.id + "'");
+                    msgArray.push("Status: '" + user.status + "'");
+                    msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
+                    bot.sendMessage(msg.channel, msgArray);
+                    return;
                 }
                 else {
                     if (user.username == "HoloBot") {
-                        msgArray.push("Ooh! That's me!~")
+                        msgArray.push("Ooh! That's me!~");
                     }
-                    msgArray.push("Requested user: '" + user.username + "'")
-                    msgArray.push("ID: '" + user.id + "'")
-                    msgArray.push("Status: '" + user.status + "'")
-                    msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name)
-                    msgArray.push("Avatar: " + user.avatarURL)
-                    bot.sendMessage(msg.channel, msgArray)
-                    return
+                    msgArray.push("Requested user: '" + user.username + "'");
+                    msgArray.push("ID: '" + user.id + "'");
+                    msgArray.push("Status: '" + user.status + "'");
+                    msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
+                    msgArray.push("Avatar: " + user.avatarURL);
+                    bot.sendMessage(msg.channel, msgArray);
+                    return;
                 }
-            })
+            });
         }
     },
     "bancount": {
@@ -370,13 +370,13 @@ var commands = {
         process: function(bot, msg) {
             fs.readFile('bancount.txt', function(err, data){
                 bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
-            })
+            });
         }
     },
     "loadsa": {
         description: "oi you! shut your mouth and look at my wad!",
         process: function(bot, msg) {
-            bot.sendMessage(msg.channel, "http://cash4ads.github.io")
+            bot.sendMessage(msg.channel, "http://cash4ads.github.io");
         }
     },
     "ban": {
@@ -386,45 +386,64 @@ var commands = {
                 var bot_permissions = msg.channel.permissionsOf(bot.user);
                 if (bot_permissions.hasPermission("manageRoles")) {
                     if (!msg.channel.server) {
-                        bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~")
-                        return
+                        bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
+                        return;
                     }
                     if (msg.mentions.length === 0) {
-                        bot.sendMessage(msg.channel, "Please mention the user that you want to get rid of~")
-                        return
+                        bot.sendMessage(msg.channel, "Please mention the user that you want to get rid of~");
+                        return;
                     }
                     msg.mentions.map(function(user) {
                         if (msg.channel.server.rolesOfUser(user)[0].name == "Members") {
+                            if (user.id == 104374046254186496) {
+                                var bancount;
+                                var newcount;
+
+                                fs.readFile('bancount.txt', function(err, data){
+                                    bancount = parseInt(data);
+
+                                    newcount = bancount + 1;
+
+                                    console.log(newcount);
+
+                                    fs.writeFile('bancount.txt', newcount, function(err) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                    });
+                                });
+                            }
+
                             bot.removeMemberFromRole(user, msg.channel.server.roles[1], function(error) {
-                                if (!error == null) {
-                                    bot.sendMessage(msg.channel, "That user isn't in the Members role!~")
+                                if (error !== null) {
+                                    bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
                                 }
 
                                 
-                            })
+                            });
                             setTimeout(function() { 
                                 bot.addMemberToRole(user, msg.channel.server.roles[4], function(error) {
-                                    if (!error == null) {
-                                        bot.sendMessage(msg.channel, "That user appears to already be banned!~")
+                                    if (error !== null) {
+                                        bot.sendMessage(msg.channel, "That user appears to already be banned!~");
                                     }
 
-                                    bot.sendMessage(msg.channel, user.username + " has been banned by " + msg.author + "!~")
-                                })
-                            }, 500)
-                            return
+                                    bot.sendMessage(msg.channel, user.username + " has been banned by " + msg.author + "!~");
+                                });
+                            }, 500);
+                            return;
                         }
                         else {
-                            //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
+                            //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
                         }
-                    })
-                return
+                    });
+                return;
                 }
                 else {
-                    bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~")
+                    bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
                 }
             }
             else {
-                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~")
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
             }
         }
     },
@@ -435,45 +454,45 @@ var commands = {
                 var bot_permissions = msg.channel.permissionsOf(bot.user);
                 if (bot_permissions.hasPermission("manageRoles")) {
                     if (!msg.channel.server) {
-                        bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~")
-                        return
+                        bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
+                        return;
                     }
                     if (msg.mentions.length === 0) {
-                        bot.sendMessage(msg.channel, "Please mention the user that you want to bring back~")
-                        return
+                        bot.sendMessage(msg.channel, "Please mention the user that you want to bring back~");
+                        return;
                     }
                     msg.mentions.map(function(user) {
                         if (msg.channel.server.rolesOfUser(user)[0].name == "BANNED") {
                             bot.removeMemberFromRole(user, msg.channel.server.roles[4], function(error) {
-                                if (!error == null) {
-                                    bot.sendMessage(msg.channel, "That user isn't banned!~")
+                                if (error !== null) {
+                                    bot.sendMessage(msg.channel, "That user isn't banned!~");
                                 }
 
-                                bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
-                            })
+                                //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
+                            });
                             setTimeout(function() { 
                                 bot.addMemberToRole(user, msg.channel.server.roles[1], function(error) {
-                                    if (!error == null) {
-                                        bot.sendMessage(msg.channel, "That user appears to already be unbanned!~")
+                                    if (error !== null) {
+                                        bot.sendMessage(msg.channel, "That user appears to already be unbanned!~");
                                     }
 
-                                    bot.sendMessage(msg.channel, user.username + " has been unbanned by " + msg.author + "!~")
-                                })
-                            }, 500)
-                            return
+                                    bot.sendMessage(msg.channel, user.username + " has been unbanned by " + msg.author + "!~");
+                                });
+                            }, 500);
+                            return;
                         }
                         else {
                             //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
                         }
-                    })
-                return
+                    });
+                return;
                 }
                 else {
-                    bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~")
+                    bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
                 }
             }
             else {
-                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~")
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
             }
         }
     },
@@ -491,92 +510,92 @@ var commands = {
         description: "purge a given number of messages",
         process: function(bot, msg, suffix) {
             if (!msg.channel.server) {
-                bot.sendMessage(msg.channel, "Sorry, but I can't do that in a DM~")
-                return
+                bot.sendMessage(msg.channel, "Sorry, but I can't do that in a DM~");
+                return;
             }
 
             if (!suffix) {
-                bot.sendMessage(msg.channel, "You need to specify the number of messages you want me to purge!~")
-                return
+                bot.sendMessage(msg.channel, "You need to specify the number of messages you want me to purge!~");
+                return;
             }
 
             if (!msg.channel.permissionsOf(msg.sender).hasPermission("manageMessages")) {
-                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to purge the logs!~")
-                return
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to purge the logs!~");
+                return;
             }
 
             if (!msg.channel.permissionsOf(bot.user).hasPermission("manageMessages")) {
-                bot.sendMessage(msg.channel, "Oh dear, it would seem I haven't got permission to purge the logs!~")
-                return
+                bot.sendMessage(msg.channel, "Oh dear, it would seem I haven't got permission to purge the logs!~");
+                return;
             }
             
             if (suffix.split(" ")[0] > 100) {
-                bot.sendMessage(msg.channel, "Sorry, but I can't purge more than 100 messages, and only 20 messages without 'force'~")
-                return
+                bot.sendMessage(msg.channel, "Sorry, but I can't purge more than 100 messages, and only 20 messages without 'force'~");
+                return;
             }
 
             if (suffix.split(" ")[0] > 20 && suffix.split(" ")[1] != "force") {
-                bot.sendMessage(msg.channel, "Sorry, but purging more than 20 messages isn't possible without 'force'~")
-                return
+                bot.sendMessage(msg.channel, "Sorry, but purging more than 20 messages isn't possible without 'force'~");
+                return;
             }
 
             if (suffix.split(" ")[0] == "force") {
-                bot.sendMessage(msg.channel, "The 'force' argument goes at the end of the command, silly!~")
-                return
+                bot.sendMessage(msg.channel, "The 'force' argument goes at the end of the command, silly!~");
+                return;
             }
 
             bot.getChannelLogs(msg.channel, suffix.split(" ")[0], function(err, msgs) {
                 if (err) {
-                    bot.sendMessage(msg.channel, "Woops! I seem to have encountered a problem with fetching the logs!~")
-                    return
+                    bot.sendMessage(msg.channel, "Woops! I seem to have encountered a problem with fetching the logs!~");
+                    return;
                 }
                 else {
-                    var purge = msgs.length
-                    var delcount = 0
+                    var purge = msgs.length;
+                    var delcount = 0;
 
                     for (msg of msgs) {
-                        bot.deleteMessage(msg)
-                        purge--
-                        delcount++
+                        bot.deleteMessage(msg);
+                        purge--;
+                        delcount++;
 
                         if (purge === 0) {
-                            bot.sendMessage(msg.channel, "Whew! I've purged " + delcount + " messages!~")
-                            return
+                            bot.sendMessage(msg.channel, "Whew! I've purged " + delcount + " messages!~");
+                            return;
                         }
                     }
                 }
-            })
+            });
         }
     },
     "github": {
         description: "links the github page for those wanting to fucking CRY at my terrible practices",
         process: function(bot, msg) {
-            bot.sendMessage(msg.channel, "Welp, it's your funeral~\nhttps://github.com/NightmareX91/HoloBot")
+            bot.sendMessage(msg.channel, "Welp, it's your funeral~\nhttps://github.com/NightmareX91/HoloBot");
         }
     },
     "dev": {
         description: "who's the developer of this weebshit bot?",
         process: function(bot, msg) {
-            bot.sendMessage(msg.channel, "meanwhile is responsible for my development, but it couldn't have been done without chalda and steamingmutt!~")
-            bot.sendMessage(msg.channel, "If you want to complain about something, bitch at meanwhile please!~")
+            bot.sendMessage(msg.channel, "meanwhile is responsible for my development, but it couldn't have been done without chalda and steamingmutt!~");
+            bot.sendMessage(msg.channel, "If you want to complain about something, bitch at meanwhile please!~");
         }
     },
     "restart": {
         description: "quick restart command for meanwhile",
         process: function(bot, msg) {
             if (Permissions.checkPermission(msg.author, "hehe")) {
-                bot.sendMessage(msg.channel, "Restarting! I won't be long!~")
+                bot.sendMessage(msg.channel, "Restarting! I won't be long!~");
                 setTimeout(function(){
-                    process.exit(1)
-                }, 500)
+                    process.exit(1);
+                }, 500);
             }
             else {
-                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to restart me!~")
-                return
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to restart me!~");
+                return;
             }
         }
     }
-}
+};
 
 try{
     aliases = require("./alias.json");
@@ -607,7 +626,7 @@ function load_plugins(){
     for (var i = 0; i < plugin_folders.length; i++) {
         var plugin;
         try{
-            var plugin = require("./plugins/" + plugin_folders[i])
+            var plugin = require("./plugins/" + plugin_folders[i]);
         } catch (err){
             console.log("Improper setup of the '" + plugin_folders[i] +"' plugin. : " + err);
         }
@@ -621,7 +640,7 @@ function load_plugins(){
             }
         }
     }
-    console.log("Loaded " + Object.keys(commands).length + " chat commands type ~help in Discord for a commands list.")
+    console.log("Loaded " + Object.keys(commands).length + " chat commands type ~help in Discord for a commands list.");
 }
 
 function capitalizeFirstLetter(string) {
@@ -634,7 +653,7 @@ var bot = new Discord.Client();
 bot.on("ready", function () {
     console.log("Ready to begin! Serving in " + bot.channels.length + " channels~");
     load_plugins();
-    bot.setPlayingGame("with her tail~")
+    bot.setPlayingGame("with her tail~");
 });
 
 bot.on("disconnected", function () {
@@ -646,11 +665,11 @@ bot.on("disconnected", function () {
 
 bot.on("message", function (msg) {
     //check if message is a command
-    if(msg.author.id != bot.user.id && (msg.content[0] === '~' || msg.content.indexOf(bot.user.mention()) == 0)){
+    if(msg.author.id != bot.user.id && (msg.content[0] === '~' || msg.content.indexOf(bot.user.mention()) === 0)){
         console.log("treating " + msg.content + " from " + msg.author + " as command");
         var cmdTxt = msg.content.split(" ")[0].substring(1);
         var suffix = msg.content.substring(cmdTxt.length+2);//add one for the ! and one for the space
-        if(msg.content.indexOf(bot.user.mention()) == 0){
+        if(msg.content.indexOf(bot.user.mention()) === 0){
             try {
                 cmdTxt = msg.content.split(" ")[1];
                 suffix = msg.content.substring(bot.user.mention().length+cmdTxt.length+2);
@@ -681,7 +700,7 @@ bot.on("message", function (msg) {
                     bot.sendMessage(msg.author,info);
                 }
             });
-            bot.sendMessage(msg.channel, msg.sender + ", I've sent you a DM with a list of my commands!~")
+            bot.sendMessage(msg.channel, msg.sender + ", I've sent you a DM with a list of my commands!~");
         }
         else if(cmd) {
             try{
@@ -741,7 +760,7 @@ function get_gif(tags, func) {
         var query = qs.stringify(params);
 
         if (tags !== null) {
-            query += "&q=" + tags.join('+')
+            query += "&q=" + tags.join('+');
         }
 
         //wouldnt see request lib if defined at the top for some reason:\
@@ -756,8 +775,8 @@ function get_gif(tags, func) {
                 //console.log(response)
             }
             else {
-                var responseObj = JSON.parse(body)
-                console.log(responseObj.data[0])
+                var responseObj = JSON.parse(body);
+                console.log(responseObj.data[0]);
                 if(responseObj.data.length){
                     func(responseObj.data[0].id);
                 } else {
