@@ -623,6 +623,41 @@ var commands = {
                 console.log("burger number " + random);
             });
         }
+    },
+    "roll": {
+        description: "rolls a dice using the rolz api",
+        process: function(bot, msg, suffix) {
+            var request = require("request");
+            var roll = "https://rolz.org/api/?" + suffix + ".json";
+
+            if (suffix === "") {
+                bot.sendMessage(msg.channel, "You need to state a dice to roll!~");
+            }
+            else {
+                request(roll, function(err, response, body) {
+                    if (err) {
+                        throw err;
+                    }
+    
+                        if (response.statusCode == 200) {
+                            console.log(response.statusCode);
+                            console.log(body.result);
+    
+                            var result = JSON.parse(body);
+
+                            var msgArray = [];
+                            msgArray.push("Dice roll: " + result.input);
+                            msgArray.push("Details: " + result.details);
+                            msgArray.push("Result: " + result.result);
+    
+                            bot.sendMessage(msg.channel, msgArray);
+                        }
+                        else {
+                            bot.sendMessage(msg.channel, "Looks like I couldn't connect to rolz.org!~ Status code: " + response.statusCode);
+                        }
+                });
+            }
+        }
     }
 };
 
