@@ -83,11 +83,8 @@ var ext = [".jpg"];
 var commands = {
     "beep": {
         description: "responds boop, useful for checking if bot is alive",
-        process: function(bot, msg, suffix) {
+        process: function(bot, msg) {
             bot.sendMessage(msg.channel, msg.sender+" boop!~");
-            if(suffix) {
-                bot.sendMessage(msg.channel, "I don't take arguments!~");
-            }
         }
     },
     "boop": {
@@ -97,8 +94,8 @@ var commands = {
         }
     },
     "join-server": {
-        usage: "<invite>",
         description: "joins the server it's invited to",
+        usage: "<invite>",
         process: function(bot,msg,suffix) {
             console.log(bot.joinServer(suffix,function(error,server) {
                 console.log("callback: " + arguments);
@@ -113,6 +110,7 @@ var commands = {
     },
     "ratewaifu": {
         description: "rates the given waifu",
+        usage: "<waifu>",
         process: function(bot, msg, suffix) {
             if (!suffix) {
                 bot.sendMessage(msg.channel, "But you haven't named the waifu!~");
@@ -169,6 +167,7 @@ var commands = {
     },
     "ratehusbando": {
         description: "rates the given husbando",
+        usage: "<husbando>",
         process: function(bot, msg, suffix) {
             if (!suffix) {
                 bot.sendMessage(msg.channel, "You need to state your husbando~");
@@ -187,6 +186,7 @@ var commands = {
     },
     "youtube": {
         description: "fetches a youtube video matching given tags",
+        usage: "<tags>",
         process: function(bot, msg, suffix) {
             bot.sendMessage(msg.channel, "I found something!~");
             youtube_plugin.respond(suffix, msg.channel, bot);
@@ -194,6 +194,7 @@ var commands = {
     },
     "wiki": {
         description: "fetches the first wiki result from wikipedia",
+        usage: "<tags>",
         process: function(bot, msg, suffix) {
             var query = suffix;
             if (!query) {
@@ -221,6 +222,7 @@ var commands = {
     },
     "urbandictionary": {
         description: "fetches some shitty definition from ud",
+        usage: "<word>",
         process: function(bot, msg, suffix) {
             var request = require('request');
             request('http://api.urbandictionary.com/v0/define?term=' + suffix, function(error, response, body) {
@@ -238,6 +240,7 @@ var commands = {
     },
     "xkcd": {
     description: "grabs a given xkcd comic",
+    usage: "<id>",
     process: function(bot, msg, suffix) {
         var request = require('request');
         request('http://xkcd.com/info.0.json', function(error, response, body) {
@@ -281,6 +284,7 @@ var commands = {
     },
     "hehe~": {
         description: "~hehe~",
+        usage: "<you don't>",
         process: function(bot, msg) {
             var bot_permissions = msg.channel.permissionsOf(bot.user);
             if (Permissions.checkPermission(msg.author, "hehe")) {
@@ -309,6 +313,7 @@ var commands = {
     },
     "gif": {
         description: "fetches a gif from giphy",
+        usage: "<tags>",
         process: function(bot, msg, suffix) {
             var tags = suffix.split(" ");
             get_gif(tags, function(id) {
@@ -322,6 +327,7 @@ var commands = {
     },
     "wolfram": {
         description: "gives results from wolframalpha using search terms",
+        usage: "<search terms>",
         process: function(bot, msg, suffix) {
             if(!suffix){
                 bot.sendMessage(msg.channel,"Usage: !wolfram <search terms> (Ex. !wolfram integrate 4x)");
@@ -331,6 +337,7 @@ var commands = {
     },
     "whois": {
         description: "gets user info",
+        usage: "<@user>",
         process: function(bot, msg, suffix) {
             if (!msg.channel.server) {
                 bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
@@ -387,6 +394,7 @@ var commands = {
     },
     "ban": {
         description: "ban those punks who posted rebecca black and justin bieber",
+        usage: "<@user>",
         process: function(bot, msg, suffix) {
             if (msg.channel.permissionsOf(msg.sender).hasPermission("manageRoles")) {
                 var bot_permissions = msg.channel.permissionsOf(bot.user);
@@ -455,6 +463,7 @@ var commands = {
     },
     "unban": {
         description: "unban those punks who posted rebecca black and justin bieber, but why would you want to?",
+        usage: "<@user>",
         process: function(bot, msg, suffix) {
             if (msg.channel.permissionsOf(msg.sender).hasPermission("manageRoles")) {
                 var bot_permissions = msg.channel.permissionsOf(bot.user);
@@ -504,6 +513,7 @@ var commands = {
     },
     "eval": {
         description: 'Executes arbitrary javascript in the bot process. User must have "eval" permission',
+        usage: "<js code>",
         process: function(bot, msg, suffix) {
             if (Permissions.checkPermission(msg.author, "eval")) {
                 bot.sendMessage(msg.channel, eval(suffix,bot));
@@ -514,6 +524,7 @@ var commands = {
     },
     "purge": {
         description: "purge a given number of messages",
+        usage: "<number> <force>",
         process: function(bot, msg, suffix) {
             if (!msg.channel.server) {
                 bot.sendMessage(msg.channel, "Sorry, but I can't do that in a DM~");
@@ -582,8 +593,8 @@ var commands = {
     "dev": {
         description: "who's the developer of this weebshit bot?",
         process: function(bot, msg) {
-            bot.sendMessage(msg.channel, "meanwhile is responsible for my development, but it couldn't have been done without chalda and steamingmutt!~");
-            bot.sendMessage(msg.channel, "If you want to complain about something, bitch at meanwhile please!~");
+            bot.sendMessage(msg.channel, "meanwhile is responsible for my development, but it couldn't have been done without chalda and steamingmutt!~\n" +
+                "If you want to complain about something, bitch at meanwhile please!~");
         }
     },
     "restart": {
@@ -626,6 +637,7 @@ var commands = {
     },
     "roll": {
         description: "rolls a dice using the rolz api",
+        usage: "<1d6>",
         process: function(bot, msg, suffix) {
             var request = require("request");
             var roll = "https://rolz.org/api/?" + suffix + ".json";
