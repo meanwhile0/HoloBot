@@ -865,7 +865,7 @@ var commands = {
                 if (msg.channel.server){
                     var bot_permissions = msg.channel.permissionsOf(bot.user);
                     bot.sendMessage(msg.channel, suffix);
-                    
+
                     if (bot_permissions.hasPermission("manageMessages")) {
                         bot.deleteMessage(msg);
                         return;
@@ -951,9 +951,12 @@ bot.on("message", function (msg) {
         if(cmdTxt === "help"){
             //help is special since it iterates over the other commands
             bot.sendMessage(msg.author,"Available Commands:", function(){
+                var msgArray = [];
+
                 for(var cmd in commands) {
                     var info = "~" + cmd;
                     var usage = commands[cmd].usage;
+
                     if(usage){
                         info += " " + usage;
                     }
@@ -961,8 +964,10 @@ bot.on("message", function (msg) {
                     if(description){
                         info += "\n\t" + description;
                     }
-                    bot.sendMessage(msg.author,info);
+                    msgArray.push(info);
                 }
+
+                bot.sendMessage(msg.author, msgArray);
             });
             bot.sendMessage(msg.channel, msg.sender + ", I've sent you a DM with a list of my commands!~");
         }
