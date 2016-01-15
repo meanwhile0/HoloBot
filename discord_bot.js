@@ -74,6 +74,7 @@ var validator = require('./validator');
 
 var fs = require('fs');
 
+var trump = require('./trump.json');
 
 var aliases;
 var messagebox;
@@ -908,6 +909,15 @@ var commands = {
             {
                 return;
             }
+        }
+    },
+    "trump": {
+        description: "quote a trump",
+        hidden: false,
+        process: function(bot, msg) {
+            var randtrump = Math.floor(Math.random() * ((trump.trump.length + 1)));
+
+            bot.sendMessage(msg.channel, "*\"" + trump.trump[randtrump].quote + "\" - Donald Trump*");
         }
     }
 };
