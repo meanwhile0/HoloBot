@@ -797,7 +797,7 @@ var commands = {
                                     console.log(wikijson);
 
                                     for (var i = 0; i < wikijson.length; i++) {
-                                        if (wikijson[i].title === "Capabilities") {
+                                        if (wikijson[i].title === "Capabilities" || wikijson[i].title === "Capability") {
                                             console.log(wikijson[i].content);
                                             console.log(wikijson[i].content[0].text);
 
