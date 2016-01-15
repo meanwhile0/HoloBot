@@ -744,6 +744,99 @@ var commands = {
                 });
             }
         }
+    },
+    "superpower": {
+        description: "gives a superpower to you or a random user",
+        usage: "<user>",
+        process: function(bot, msg, suffix) {
+            var request = require("request");
+            var id = "48473";
+            var powerlisting = "http://www.wikia.com/api/v1/Wikis/Details?ids=" + id;
+            var power;
+            var capabilities;
+
+            request("http://powerlisting.wikia.com/wiki/Special:Random", function(err, response, body) {
+                if (err) {
+                    throw err;
+                }
+
+                if (response.statusCode === 200) {
+                    console.log(response.request.uri.path);
+                    console.log(response.request.uri.host);
+    
+                    var str1 = response.request.uri.path;
+                    var str2 = str1.replace("\/wiki\/", "");
+    
+                    console.log(str2);
+    
+                    request("http://www.powerlisting.wikia.com/api/v1/Articles/List?expand=1&limit=1&offset=" + str2, function(err, response, body) {
+                        if (err) {
+                            throw err;
+                        }
+    
+                        if (response.statusCode === 200) {
+                            console.log(JSON.parse(body));
+
+                            var wikijson = JSON.parse(body);
+                            var id = wikijson.items[0].id;
+                                
+                            power = wikijson.items[0].title;
+
+                            console.log(id);
+
+                            request("http://www.powerlisting.wikia.com/api/v1/Articles/AsSimpleJson?id=" + id, function(err, response, body) {
+                                if (err) {
+                                    throw err;
+                                }
+
+                                if (response.statusCode === 200) {
+                                    console.log(JSON.parse(body));
+
+                                    var wikijson = JSON.parse(body).sections;
+
+                                    console.log(wikijson);
+
+                                    for (var i = 0; i < wikijson.length; i++) {
+                                        if (wikijson[i].title === "Capabilities") {
+                                            console.log(wikijson[i].content);
+                                            console.log(wikijson[i].content[0].text);
+
+                                            capabilities = wikijson[i].content[0].text;
+                                        }
+                                    }
+
+                                    if (!suffix) {
+                                        var msgArray = [];
+
+                                        msgArray.push(msg.sender + "'s superpower is: " + power + "!");
+                                        msgArray.push(capabilities);
+
+                                        bot.sendMessage(msg.channel, msgArray);
+                                        return;
+                                    }
+                                    else if (suffix) {
+                                        if (msg.mentions.length === 0) {
+                                            bot.sendMessage(msg.channel, "Please mention the user you want to give a superpower to!~");
+                                            return;
+                                        }
+
+                                        msg.mentions.map(function(user) {
+                                            var msgArray = [];
+
+                                            msgArray.push(user + "'s superpower is: " + power + "!");
+                                            msgArray.push(capabilities);
+
+                                            bot.sendMessage(msg.channel, msgArray);
+                                            return;
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     }
 };
 
