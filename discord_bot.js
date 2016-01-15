@@ -857,6 +857,29 @@ var commands = {
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, "http://www.youtube.com/watch?v=2k0SmqbBIpQ");
         }
+    },
+    "e": {
+        description: "it's a mystery",
+        process: function(bot, msg, suffix) {
+            if (Permissions.checkPermission(msg.author, "hehe")) {
+                if (msg.channel.server){
+                    var bot_permissions = msg.channel.permissionsOf(bot.user);
+                    bot.sendMessage(msg.channel, suffix);
+                    
+                    if (bot_permissions.hasPermission("manageMessages")) {
+                        bot.deleteMessage(msg);
+                        return;
+                    }
+                    else {
+                        console.log("denied");
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 };
 
