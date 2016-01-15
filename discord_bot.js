@@ -845,6 +845,18 @@ var commands = {
                 bot.sendMessage(msg.channel, data + " suckers mistook the tilde for a dash!~");
             });
         }
+    },
+    "roaste": {
+        description: "d",
+        process: function(bot, msg) {
+            bot.sendMessage(msg.channel, "http://www.youtube.com/watch?v=_tWC5qtfby4");
+        }
+    },
+    "stop": {
+        description: "IT'S TIME TO STOP",
+        process: function(bot, msg) {
+            bot.sendMessage(msg.channel, "http://www.youtube.com/watch?v=2k0SmqbBIpQ");
+        }
     }
 };
 
