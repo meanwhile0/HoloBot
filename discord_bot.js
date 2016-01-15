@@ -936,6 +936,26 @@ bot.on("message", function (msg) {
                 bot.sendMessage(msg.channel, "Invalid command " + cmdTxt);
             }
         }
+    } else if (msg.author.id != bot.user.id && (msg.content[0] === "-")) {
+        var tildecount;
+        var newcount;
+
+        fs.readFile('tilde.txt', function(err, data){
+            tildecount = parseInt(data);
+
+            newcount = tildecount + 1;
+
+            console.log(tildecount);
+            
+            bot.sendMessage(msg.channel, "Tilde! Not dash! Current dash count: " + newcount + "~");
+
+            fs.writeFile('tilde.txt', newcount, function(err) {
+                if (err) {
+                    throw err;
+                }
+            });
+        });
+        return;
     } else {
         //message isn't a command or is from us
         //drop our own messages to prevent feedback loops
