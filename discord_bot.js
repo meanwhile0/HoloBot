@@ -83,12 +83,14 @@ var ext = [".jpg"];
 var commands = {
     "beep": {
         description: "responds boop, useful for checking if bot is alive",
+        hidden: false,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, msg.sender+" boop!~");
         }
     },
     "boop": {
         description: "boop",
+        hidden: false,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, msg.sender + " eat shit~");
         }
@@ -96,6 +98,7 @@ var commands = {
     "join-server": {
         description: "joins the server it's invited to",
         usage: "<invite>",
+        hidden: false,
         process: function(bot,msg,suffix) {
             console.log(bot.joinServer(suffix,function(error,server) {
                 console.log("callback: " + arguments);
@@ -111,6 +114,7 @@ var commands = {
     "ratewaifu": {
         description: "rates the given waifu",
         usage: "<waifu>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if (!suffix) {
                 bot.sendMessage(msg.channel, "But you haven't named the waifu!~");
@@ -168,6 +172,7 @@ var commands = {
     "ratehusbando": {
         description: "rates the given husbando",
         usage: "<husbando>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if (!suffix) {
                 bot.sendMessage(msg.channel, "You need to state your husbando~");
@@ -187,6 +192,7 @@ var commands = {
     "youtube": {
         description: "fetches a youtube video matching given tags",
         usage: "<tags>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             bot.sendMessage(msg.channel, "I found something!~");
             youtube_plugin.respond(suffix, msg.channel, bot);
@@ -195,6 +201,7 @@ var commands = {
     "wiki": {
         description: "fetches the first wiki result from wikipedia",
         usage: "<tags>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             var query = suffix;
             if (!query) {
@@ -223,6 +230,7 @@ var commands = {
     "urbandictionary": {
         description: "fetches some shitty definition from ud",
         usage: "<word>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             var request = require('request');
             request('http://api.urbandictionary.com/v0/define?term=' + suffix, function(error, response, body) {
@@ -241,6 +249,7 @@ var commands = {
     "xkcd": {
     description: "grabs a given xkcd comic",
     usage: "<id>",
+    hidden: false,
     process: function(bot, msg, suffix) {
         var request = require('request');
         request('http://xkcd.com/info.0.json', function(error, response, body) {
@@ -285,6 +294,7 @@ var commands = {
     "hehe~": {
         description: "~hehe~",
         usage: "<you don't>",
+        hidden: true,
         process: function(bot, msg) {
             var bot_permissions = msg.channel.permissionsOf(bot.user);
             if (Permissions.checkPermission(msg.author, "hehe")) {
@@ -314,6 +324,7 @@ var commands = {
     "gif": {
         description: "fetches a gif from giphy",
         usage: "<tags>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             var tags = suffix.split(" ");
             get_gif(tags, function(id) {
@@ -328,6 +339,7 @@ var commands = {
     "wolfram": {
         description: "gives results from wolframalpha using search terms",
         usage: "<search terms>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if(!suffix){
                 bot.sendMessage(msg.channel,"Usage: !wolfram <search terms> (Ex. !wolfram integrate 4x)");
@@ -338,6 +350,7 @@ var commands = {
     "whois": {
         description: "gets user info",
         usage: "<@user>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if (!msg.channel.server) {
                 bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
@@ -380,6 +393,7 @@ var commands = {
     },
     "bancount": {
         description: "what's the deal with meanwhile's ban count?",
+        hidden: false,
         process: function(bot, msg) {
             fs.readFile('bancount.txt', function(err, data){
                 bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
@@ -388,6 +402,7 @@ var commands = {
     },
     "loadsa": {
         description: "oi you! shut your mouth and look at my wad!",
+        hidden: true,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, "http://cash4ads.github.io");
         }
@@ -395,6 +410,7 @@ var commands = {
     "ban": {
         description: "ban those punks who posted rebecca black and justin bieber",
         usage: "<@user>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if (msg.channel.permissionsOf(msg.sender).hasPermission("manageRoles")) {
                 var bot_permissions = msg.channel.permissionsOf(bot.user);
@@ -464,6 +480,7 @@ var commands = {
     "unban": {
         description: "unban those punks who posted rebecca black and justin bieber, but why would you want to?",
         usage: "<@user>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if (msg.channel.permissionsOf(msg.sender).hasPermission("manageRoles")) {
                 var bot_permissions = msg.channel.permissionsOf(bot.user);
@@ -514,6 +531,7 @@ var commands = {
     "eval": {
         description: 'Executes arbitrary javascript in the bot process. User must have "eval" permission',
         usage: "<js code>",
+        hidden: true,
         process: function(bot, msg, suffix) {
             if (Permissions.checkPermission(msg.author, "eval")) {
                 bot.sendMessage(msg.channel, eval(suffix,bot));
@@ -525,6 +543,7 @@ var commands = {
     "purge": {
         description: "purge a given number of messages",
         usage: "<number> <force>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             if (!msg.channel.server) {
                 bot.sendMessage(msg.channel, "Sorry, but I can't do that in a DM~");
@@ -586,12 +605,14 @@ var commands = {
     },
     "github": {
         description: "links the github page for those wanting to fucking CRY at my terrible practices",
+        hidden: false,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, "Welp, it's your funeral~\nhttps://github.com/NightmareX91/HoloBot");
         }
     },
     "dev": {
         description: "who's the developer of this weebshit bot?",
+        hidden: false,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, "meanwhile is responsible for my development, but it couldn't have been done without chalda and steamingmutt!~\n" +
                 "If you want to complain about something, bitch at meanwhile please!~");
@@ -599,6 +620,7 @@ var commands = {
     },
     "restart": {
         description: "quick restart command for meanwhile",
+        hidden: true,
         process: function(bot, msg) {
             if (Permissions.checkPermission(msg.author, "hehe")) {
                 bot.sendMessage(msg.channel, "Restarting! I won't be long!~");
@@ -614,6 +636,7 @@ var commands = {
     },
     "burger": {
         description: "a burger to surpass metal gear",
+        hidden: false,
         process: function(bot, msg) {
             var path = require("path");
             var imgArray = [];
@@ -638,6 +661,7 @@ var commands = {
     "roll": {
         description: "rolls a dice using the rolz api",
         usage: "<1d6> <operator> <number>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             var request = require("request");
             var roll = "https://rolz.org/api/?" + suffix.split(" ")[0] + ".json";
@@ -747,7 +771,8 @@ var commands = {
     },
     "superpower": {
         description: "gives a superpower to you or a random user",
-        usage: "<user>",
+        usage: "<@user>",
+        hidden: false,
         process: function(bot, msg, suffix) {
             var request = require("request");
             var id = "48473";
@@ -840,6 +865,7 @@ var commands = {
     },
     "dashcount": {
         description: "how many suckas used a dash instead of a tilde?",
+        hidden: false,
         process: function(bot, msg) {
             fs.readFile("tilde.txt", function(err, data) {
                 bot.sendMessage(msg.channel, data + " suckers mistook the tilde for a dash!~");
@@ -848,18 +874,21 @@ var commands = {
     },
     "roaste": {
         description: "d",
+        hidden: false,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, "http://www.youtube.com/watch?v=_tWC5qtfby4");
         }
     },
     "stop": {
         description: "IT'S TIME TO STOP",
+        hidden: false,
         process: function(bot, msg) {
             bot.sendMessage(msg.channel, "http://www.youtube.com/watch?v=2k0SmqbBIpQ");
         }
     },
     "e": {
         description: "it's a mystery",
+        hidden: true,
         process: function(bot, msg, suffix) {
             if (Permissions.checkPermission(msg.author, "hehe")) {
                 if (msg.channel.server){
@@ -956,6 +985,7 @@ bot.on("message", function (msg) {
                 for(var cmd in commands) {
                     var info = "~" + cmd;
                     var usage = commands[cmd].usage;
+                    var hidden = commands[cmd].hidden;
 
                     if(usage){
                         info += " " + usage;
@@ -964,7 +994,10 @@ bot.on("message", function (msg) {
                     if(description){
                         info += "\n\t" + description;
                     }
-                    msgArray.push(info);
+
+                    if (!hidden) {
+                        msgArray.push(info);
+                    }
                 }
 
                 bot.sendMessage(msg.author, msgArray);
