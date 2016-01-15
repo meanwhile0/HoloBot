@@ -650,97 +650,97 @@ var commands = {
                     if (err) {
                         throw err;
                     }
-                        if (response.statusCode === 200) {
-                            var result = JSON.parse(body);
-                            var diceroll = suffix.split(" ")[0];
-                            var operator = suffix.split(" ")[1];
-                            var number = parseInt(suffix.split(" ")[2]);
-                            var msgArray = [];
+                    if (response.statusCode === 200) {
+                        var result = JSON.parse(body);
+                        var diceroll = suffix.split(" ")[0];
+                        var operator = suffix.split(" ")[1];
+                        var number = parseInt(suffix.split(" ")[2]);
+                        var msgArray = [];
 
-                            console.log(response.statusCode);
-                            console.log(body.result);
+                        console.log(response.statusCode);
+                        console.log(body.result);
 
-                            if (diceroll !== "" && !operator && !number) {
-                                msgArray.push("Dice roll: " + result.input);
-                                msgArray.push("Details: " + result.details);
-                                msgArray.push("Result: " + result.result);
+                        if (diceroll !== "" && !operator && !number) {
+                            msgArray.push("Dice roll: " + result.input);
+                            msgArray.push("Details: " + result.details);
+                            msgArray.push("Result: " + result.result);
+        
+                            bot.sendMessage(msg.channel, msgArray);
+                            return;
+                        }
+                            
+                        if (diceroll && operator === "+") {
+                            console.log(operator + " detected");
+
+                            if (number) {
+                                console.log(number + " found");
+
+                                msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
+                                msgArray.push("Details: " + result.details + " " + operator + " " + number);
+                                msgArray.push("Result: " + parseInt(result.result + number));
             
                                 bot.sendMessage(msg.channel, msgArray);
                                 return;
                             }
-                            
-                            if (diceroll && operator === "+") {
-                                console.log(operator + " detected");
-
-                                if (number) {
-                                    console.log(number + " found");
-
-                                    msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
-                                    msgArray.push("Details: " + result.details + " " + operator + " " + number);
-                                    msgArray.push("Result: " + parseInt(result.result + number));
-            
-                                    bot.sendMessage(msg.channel, msgArray);
-                                    return;
-                                }
-                                else if (!number) {
-                                    bot.sendMessage(msg.channel, "You need to input a number that you want to add to your roll!~");
-                                }
-                            }
-                            else if (diceroll && operator === "-") {
-                                console.log(operator + " detected");
-
-                                if (number) {
-                                    console.log(number + " found");
-
-                                    msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
-                                    msgArray.push("Details: " + result.details + " " + operator + " " + number);
-                                    msgArray.push("Result: " + parseInt(result.result - number));
-            
-                                    bot.sendMessage(msg.channel, msgArray);
-                                    return;
-                                }
-                                else if (!number) {
-                                    bot.sendMessage(msg.channel, "You need to input a number that you want to subtract from your roll!~");
-                                }
-                            }
-                            else if (diceroll && operator === "*") {
-                                console.log(operator + " detected");
-
-                                if (number) {
-                                    console.log(number + " found");
-
-                                    msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
-                                    msgArray.push("Details: " + result.details + " " + operator + " " + number);
-                                    msgArray.push("Result: " + parseInt(result.result * number));
-            
-                                    bot.sendMessage(msg.channel, msgArray);
-                                    return;
-                                }
-                                else if (!number) {
-                                    bot.sendMessage(msg.channel, "You need to input a number that you want to multiply your roll by!~");
-                                }
-                            }
-                            else if (diceroll && operator === "/") {
-                                console.log(operator + " detected");
-
-                                if (number) {
-                                    console.log(number + " found");
-
-                                    msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
-                                    msgArray.push("Details: " + result.details + " " + operator + " " + number);
-                                    msgArray.push("Result: " + parseInt(result.result / number));
-            
-                                    bot.sendMessage(msg.channel, msgArray);
-                                    return;
-                                }
-                                else if (!number) {
-                                    bot.sendMessage(msg.channel, "You need to input a number that you want to divide your roll by!~");
-                                }
+                            else if (!number) {
+                                bot.sendMessage(msg.channel, "You need to input a number that you want to add to your roll!~");
                             }
                         }
-                        else {
-                            bot.sendMessage(msg.channel, "Looks like I couldn't connect to rolz.org!~ Status code: " + response.statusCode);
+                        else if (diceroll && operator === "-") {
+                            console.log(operator + " detected");
+
+                            if (number) {
+                                console.log(number + " found");
+
+                                msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
+                                msgArray.push("Details: " + result.details + " " + operator + " " + number);
+                                msgArray.push("Result: " + parseInt(result.result - number));
+            
+                                bot.sendMessage(msg.channel, msgArray);
+                                return;
+                            }
+                            else if (!number) {
+                                bot.sendMessage(msg.channel, "You need to input a number that you want to subtract from your roll!~");
+                            }
                         }
+                        else if (diceroll && operator === "*") {
+                            console.log(operator + " detected");
+
+                            if (number) {
+                                console.log(number + " found");
+
+                                msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
+                                msgArray.push("Details: " + result.details + " " + operator + " " + number);
+                                msgArray.push("Result: " + parseInt(result.result * number));
+            
+                                bot.sendMessage(msg.channel, msgArray);
+                                return;
+                            }
+                            else if (!number) {
+                                bot.sendMessage(msg.channel, "You need to input a number that you want to multiply your roll by!~");
+                            }
+                        }
+                        else if (diceroll && operator === "/") {
+                            console.log(operator + " detected");
+
+                            if (number) {
+                                console.log(number + " found");
+
+                                msgArray.push("Dice roll: " + result.input + " " + operator + " " + number);
+                                msgArray.push("Details: " + result.details + " " + operator + " " + number);
+                                msgArray.push("Result: " + parseInt(result.result / number));
+            
+                                bot.sendMessage(msg.channel, msgArray);
+                                return;
+                            }
+                            else if (!number) {
+                                bot.sendMessage(msg.channel, "You need to input a number that you want to divide your roll by!~");
+                            }
+                        }
+                    }
+                    else {
+                        bot.sendMessage(msg.channel, "Looks like I couldn't connect to rolz.org!~ Status code: " + response.statusCode);
+                    }
                 });
             }
         }
