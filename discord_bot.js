@@ -636,7 +636,7 @@ var commands = {
         }
     },
     "burger": {
-        description: "a burger to surpass metal gear",
+        description: "a burger to surpass Burger King",
         hidden: false,
         process: function(bot, msg) {
             var path = require("path");
