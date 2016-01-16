@@ -919,7 +919,31 @@ var commands = {
 
             bot.sendMessage(msg.channel, "*\"" + trump.trump[randtrump].quote + "\" - Donald Trump*");
         }
-    }
+    },
+    "gunporn": {
+        description: "a weapon to surpass metal gear",
+        hidden: false,
+        process: function(bot, msg) {
+            var path = require("path");
+            var imgArray = [];
+
+            fs.readdir("./gunporn", function(err, dirContents) {
+                for (var i = 0; i < dirContents.length; i++) {
+                    for (var o = 0; o < ext.length; o++) {
+                        if (path.extname(dirContents[i]) === ext[o]) {
+                            imgArray.push(dirContents[i]);
+                        }
+                    }
+                }
+
+                var random = Math.floor(Math.random() * ((imgArray.length + 1) - 1)) + 1;
+                    
+                bot.sendFile(msg.channel, "./gunporn/" + random + ".jpg");
+
+                console.log("gunporn number " + random);
+            });
+        }
+    },
 };
 
 try{
