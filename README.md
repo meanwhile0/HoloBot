@@ -44,3 +44,6 @@ Before first run you will need to create an `auth.json` file. The email and pass
 
 To start the bot just run
 `node discord_bot.js`.
+
+# Or...
+if you're too lazy to do any of that shit just join [HoloBot's server](https://discord.gg/0ltfOcHtTFbikkwM) and use `~join-server` for the public version of HoloBot that will most likely work on your server.
