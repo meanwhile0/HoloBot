@@ -944,6 +944,75 @@ var commands = {
             });
         }
     },
+    "ratelaifu": {
+        description: "the official user rating system",
+        usage: "<@user>",
+        hidden: false,
+        process: function(bot, msg, suffix) {
+            var value = Math.floor(Math.random() * ((10 + 1) - 1)) + 1;
+            var file = "laifus.json";
+
+            if (!suffix) {
+                fs.readFile(file, "utf8", function(err, out) {
+                    if (err) {
+                        throw err;
+                    }
+                    
+                    var obj = JSON.parse(out);
+
+                    if (!(msg.sender in obj)) {
+                        obj[msg.sender] = {};
+                        obj[msg.sender].rating = value;
+
+                        fs.writeFile(file, JSON.stringify(obj, null, 4), function(err) {
+                            if (err) {
+                                throw err;
+                            }
+                            bot.sendMessage(msg.channel, "I rate " + msg.sender + "'s laifu a... " + value + "/10!~");
+                        });
+                    }
+                    else {
+                        var rating = obj[msg.sender].rating;
+
+                        bot.sendMessage(msg.channel, "I rate " + msg.sender + "'s laifu a... " + rating + "/10!~");
+                    }
+                });
+            }
+            else {
+                if (msg.mentions.length === 0) {
+                    bot.sendMessage(msg.channel, "Please mention the user who's laifu you want to rate!~");
+                    return;
+                }
+
+                msg.mentions.map(function(user) {
+                    fs.readFile(file, "utf8", function(err, out) {
+                        if (err) {
+                            throw err;
+                        }
+                        
+                        var obj = JSON.parse(out);
+    
+                            if (!(user in obj)) {
+                                obj[user] = {};
+                                obj[user].rating = value;
+    
+                                fs.writeFile(file, JSON.stringify(obj, null, 4), function(err) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    bot.sendMessage(msg.channel, "I rate " + user + "'s laifu a... " + value + "/10!~");
+                                });
+                            }
+                            else {
+                                var rating = obj[user].rating;
+    
+                                bot.sendMessage(msg.channel, "I rate " + user + "'s laifu a... " + rating + "/10!~");
+                        }
+                    });
+                });
+            }
+        }
+    }
 };
 
 try{
