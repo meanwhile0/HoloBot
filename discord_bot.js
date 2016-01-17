@@ -83,6 +83,8 @@ var messagebox;
 
 var ext = [".jpg"];
 
+var maintenance;
+
 var commands = {
     "beep": {
         description: "responds boop, useful for checking if bot is alive",
@@ -931,6 +933,46 @@ var commands = {
                 });
             }
         }
+    },
+    "maintenance": {
+        description: "meanwhile exclusive maintenance mode",
+        usage: "<you don't>",
+        hidden: true,
+        process: function(bot, msg) {
+            if (Permissions.checkPermission(msg.author, "hehe")) {
+                if (maintenance === "true") {
+                    console.log("Entering maintenance mode!");
+                    bot.sendMessage(msg.channel, "Leaving maintenance mode! Carry on!~");
+                    fs.writeFile("maintenance.txt", "false", function(err) {
+                        if (err) {
+                            throw err;
+                        }
+
+                        maintenance = "false";
+                        bot.setStatusOnline();
+                        bot.setPlayingGame("with her tail~");
+                    });
+
+                    return;
+                }
+                
+                if (maintenance === "false") {
+                    console.log("Leaving maintenance mode!");
+                    bot.sendMessage(msg.channel, "Entering maintenance mode! I won't respond to any commands! Sorry!~");
+                    fs.writeFile("maintenance.txt", "true", function(err) {
+                        if (err) {
+                            throw err;
+                        }
+
+                        maintenance = "true";
+                        bot.setStatusIdle();
+                        bot.setPlayingGame("MAINTENANCE");
+                    });
+
+                    return;
+                }
+            }
+        }
     }
 };
 
@@ -963,12 +1005,32 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-
 var bot = new Discord.Client();
 
 bot.on("ready", function () {
     console.log("Ready to begin! Serving in " + bot.channels.length + " channels~");
-    bot.setPlayingGame("with her tail~");
+    fs.readFile("maintenance.txt", "utf8", function(err, data) {
+        if (err) {
+            throw err;
+        }
+
+        maintenance = data;
+
+        console.log(maintenance);
+
+        if (maintenance === "true") {
+            bot.setStatusIdle();
+            bot.setPlayingGame("MAINTENANCE");
+
+            return;
+        }
+        else if (maintenance === "false") {
+            bot.setStatusOnline();
+            bot.setPlayingGame("with her tail~");
+
+            return;
+        }
+    });
 });
 
 bot.on("disconnected", function () {
@@ -979,95 +1041,98 @@ bot.on("disconnected", function () {
 });
 
 bot.on("message", function (msg) {
-    //check if message is a command
-    if(msg.author.id != bot.user.id && (msg.content[0] === '~' || msg.content.indexOf(bot.user.mention()) === 0)){
-        console.log("treating " + msg.content + " from " + msg.author + " as command");
-        var cmdTxt = msg.content.split(" ")[0].substring(1);
-        var suffix = msg.content.substring(cmdTxt.length+2);//add one for the ! and one for the space
-        if(msg.content.indexOf(bot.user.mention()) === 0){
-            try {
-                cmdTxt = msg.content.split(" ")[1];
-                suffix = msg.content.substring(bot.user.mention().length+cmdTxt.length+2);
-            } catch(e){ //no command
-                bot.sendMessage(msg.channel,"Yes?");
+    //check if not maintenance mode
+    if (maintenance === "false" || Permissions.checkPermission(msg.author, "hehe")) {
+        //check if message is a command
+        if(msg.author.id != bot.user.id && (msg.content[0] === '~' || msg.content.indexOf(bot.user.mention()) === 0)){
+            console.log("treating " + msg.content + " from " + msg.author + " as command");
+            var cmdTxt = msg.content.split(" ")[0].substring(1);
+            var suffix = msg.content.substring(cmdTxt.length+2);//add one for the ! and one for the space
+            if(msg.content.indexOf(bot.user.mention()) === 0){
+                try {
+                    cmdTxt = msg.content.split(" ")[1];
+                    suffix = msg.content.substring(bot.user.mention().length+cmdTxt.length+2);
+                } catch(e){ //no command
+                    bot.sendMessage(msg.channel,"Yes?");
+                    return;
+                }
+            }
+            alias = aliases[cmdTxt];
+            if(alias){
+                cmdTxt = alias[0];
+                suffix = alias[1] + " " + suffix;
+            }
+            var cmd = commands[cmdTxt];
+            if(cmdTxt === "help"){
+                //help is special since it iterates over the other commands
+                bot.sendMessage(msg.author,"Available Commands:", function(){
+                    var msgArray = [];
+    
+                    for(var cmd in commands) {
+                        var info = "~" + cmd;
+                        var usage = commands[cmd].usage;
+                        var hidden = commands[cmd].hidden;
+    
+                        if(usage){
+                            info += " " + usage;
+                        }
+                        var description = commands[cmd].description;
+                        if(description){
+                            info += "\n\t" + description;
+                        }
+    
+                        if (!hidden) {
+                            msgArray.push(info);
+                        }
+                    }
+    
+                    bot.sendMessage(msg.author, msgArray);
+                });
+                bot.sendMessage(msg.channel, msg.sender + ", I've sent you a DM with a list of my commands!~");
+            }
+            else if(cmd) {
+                try{
+                    cmd.process(bot,msg,suffix);
+                } catch(e){
+                    if(Config.debug){
+                        bot.sendMessage(msg.channel, "command " + cmdTxt + " failed :(\n" + e.stack);
+                    }
+                }
+            } else {
+                if(Config.respondToInvalid){
+                    bot.sendMessage(msg.channel, "Invalid command " + cmdTxt);
+                }
+            }
+        } else if (msg.author.id != bot.user.id && (msg.content[0] === "-")) {
+            var tildecount;
+            var newcount;
+    
+            fs.readFile('tilde.txt', function(err, data){
+                tildecount = parseInt(data);
+    
+                newcount = tildecount + 1;
+    
+                console.log(tildecount);
+    
+                bot.sendMessage(msg.channel, "Tilde! Not dash! Current dash count: " + newcount + "~");
+    
+                fs.writeFile('tilde.txt', newcount, function(err) {
+                    if (err) {
+                        throw err;
+                    }
+                });
+            });
+            return;
+        } else {
+            //message isn't a command or is from us
+            //drop our own messages to prevent feedback loops
+            if(msg.author == bot.user){
                 return;
             }
-        }
-        alias = aliases[cmdTxt];
-        if(alias){
-            cmdTxt = alias[0];
-            suffix = alias[1] + " " + suffix;
-        }
-        var cmd = commands[cmdTxt];
-        if(cmdTxt === "help"){
-            //help is special since it iterates over the other commands
-            bot.sendMessage(msg.author,"Available Commands:", function(){
-                var msgArray = [];
-
-                for(var cmd in commands) {
-                    var info = "~" + cmd;
-                    var usage = commands[cmd].usage;
-                    var hidden = commands[cmd].hidden;
-
-                    if(usage){
-                        info += " " + usage;
-                    }
-                    var description = commands[cmd].description;
-                    if(description){
-                        info += "\n\t" + description;
-                    }
-
-                    if (!hidden) {
-                        msgArray.push(info);
-                    }
-                }
-
-                bot.sendMessage(msg.author, msgArray);
-            });
-            bot.sendMessage(msg.channel, msg.sender + ", I've sent you a DM with a list of my commands!~");
-        }
-        else if(cmd) {
-            try{
-                cmd.process(bot,msg,suffix);
-            } catch(e){
-                if(Config.debug){
-                    bot.sendMessage(msg.channel, "command " + cmdTxt + " failed :(\n" + e.stack);
-                }
+            
+            if (msg.author != bot.user && msg.isMentioned(bot.user)) {
+                    bot.sendMessage(msg.channel,msg.author + ", you called?~");
             }
-        } else {
-            if(Config.respondToInvalid){
-                bot.sendMessage(msg.channel, "Invalid command " + cmdTxt);
-            }
-        }
-    } else if (msg.author.id != bot.user.id && (msg.content[0] === "-")) {
-        var tildecount;
-        var newcount;
-
-        fs.readFile('tilde.txt', function(err, data){
-            tildecount = parseInt(data);
-
-            newcount = tildecount + 1;
-
-            console.log(tildecount);
-
-            bot.sendMessage(msg.channel, "Tilde! Not dash! Current dash count: " + newcount + "~");
-
-            fs.writeFile('tilde.txt', newcount, function(err) {
-                if (err) {
-                    throw err;
-                }
-            });
-        });
-        return;
-    } else {
-        //message isn't a command or is from us
-        //drop our own messages to prevent feedback loops
-        if(msg.author == bot.user){
-            return;
-        }
-        
-        if (msg.author != bot.user && msg.isMentioned(bot.user)) {
-                bot.sendMessage(msg.channel,msg.author + ", you called?~");
         }
     }
 });
