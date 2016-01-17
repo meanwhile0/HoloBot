@@ -1,6 +1,8 @@
 # HoloBot
 A Discord chat bot that will most likely not work for you? I dunno, it's geared towards FP WAYT's Discord server.
 
+This bot uses [hydrabolt's discord.js](https://github.com/hydrabolt/discord.js). I will occasionally switch to the indev branch, so be careful!
+
 Cheers to [Chalda](https://github.com/chalda/DiscordBot) and [SteamingMutt](https://github.com/SteamingMutt/DougleyBot) for providing a base for my lazy ass to work off.
 
 # Installation
