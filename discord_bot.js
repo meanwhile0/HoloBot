@@ -1,5 +1,5 @@
 try {
-    var Discord = require("discord.js");
+    var Discord = require("discord.js-indev");
 } catch (e){
     console.log("Please run npm install and ensure it passes with no errors!");
     process.exit();
@@ -1142,7 +1142,7 @@ bot.on("message", function (msg) {
 bot.on("presence", function(user,status,gameId) {
     //if(status === "online"){
     //console.log("presence update");
-    console.log(user+" went "+status);
+    //console.log(user+" went "+status);
     //}
     try{
     if(status != 'offline'){
