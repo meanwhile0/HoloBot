@@ -29,7 +29,8 @@
     "winston": "1.0.x",
     "wolfram": "0.3.x",
     "yahoo-finance": "0.2.x",
-    "youtube-node": "1.2.x"
+    "youtube-node": "1.2.x",
+    "roll": "1.1.x"
   },
   "main": "discord_bot.js"
 }
