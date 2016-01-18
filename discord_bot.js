@@ -973,7 +973,286 @@ var commands = {
                 }
             }
         }
-    }
+    },
+    "badageboys": {
+        description: "THE BADAGE BOYS ARE BACK IN TOWN",
+        hidden: true,
+        process: function(bot, msg) {
+            if (Permissions.checkPermission(msg.author, "hehe")) {
+                var akbar = [];
+                var azim = [];
+                var danmolloy = [];
+                var druidvamp = [];
+                var synopsis = [];
+                var elder = [];
+                var eric = [];
+                var flavius = [];
+                var foundation = [];
+                var laurent = [];
+                var madeleine = [];
+                var magnus = [];
+                var wooptown = [];
+                var jenikens = [];
+                var master = [];
+                var essence = [];
+                var roaming = [];
+                var nasty = [];
+
+                akbar.push("***THE BADAGE BOYS ARE BACK IN TOWN***");
+                akbar.push("**AKBAR**");
+                akbar.push("Akbar, a powerful vampire, was burnt when the Mother and Father, Akasha and Enkil, were put into the sun. He resides in Antioch, in search of the Mother and Father, and leaves his victims on the steps of the Temple.");
+                akbar.push("Akbar threatens to kill Pandora unless Marius allows him to see and drink from the ancient couple. He drains Pandora to near death before Marius allows him to see the Mother and Father, and is later destroyed by Akasha when he attempts to drink from her.");
+                akbar.push("http://i.imgur.com/jhDIx.jpg");
+
+                azim.push("**AZIM**");
+                azim.push("Azim was one of the older vampires. He ruled as a god for a thousand years in a secret temple in the Himalayas, where those who went to worship him never returned alive.");
+                azim.push("He conducted disturbing rituals and entices Pandora to participate in them in return for Marius' location (when Marius gets trapped in the ice after Akasha awakens).");
+                azim.push("Akasha spares him during her worldwide slaughter, but for a purpose. She sees him as the ultimate symbol of vampire evil and explodes his body in front of human witnesses.");
+                azim.push("http://i.imgur.com/PEmx8.jpg");
+
+                danmolloy.push("**DANIEL MOLLOY**");
+                danmolloy.push("Daniel was the recorder of Louis' confession that later became the story Interview with the Vampire. Born in 1955, Daniel comes across Armand in 1975, after he had recorded Louis' story.");
+                danmolloy.push("He becomes Armand's mortal companion, but conflicts drive them apart. Armand continually refuses Daniel's requests for immortality.");
+                danmolloy.push("Daniel turns to alcohol and becomes a mortal recipient of the dream of the twins. In 1985, Armand gives Daniel (who is dying) immortal life. He survives Akasha's worldwide slaughter of vampires.");
+                danmolloy.push("http://i.imgur.com/ePwqZ.jpg");
+
+                druidvamp.push("**DRUID VAMPIRE** *GOD OF THE GROVE*");
+                druidvamp.push("The Druid Vampire, also known as the God of the Grove, was kept in an oak tree by the Druids to preside over their harvest and to ensure the fertility of their land. He was badly burnt when Akasha and Enkil were placed in the sun, and as a result of his weakened state, the Druids went in search for another god.");
+                druidvamp.push("The Druids abduct Marius and return him to their god, who subsequently makes Marius a vampire. He is destroyed by the Druids when he tries to accompany Marius in search of reasons as to why so many vampires where burnt.");
+                druidvamp.push("http://i.imgur.com/lAAAr.jpg");
+
+                synopsis.push("**SYNOPSIS**");
+                synopsis.push("The brand-new bestselling series from the authors of the phenomenal multi-million-selling Left Behind books. Now in paperback!");
+                synopsis.push("Here is the first in the Biblically inspired series, The Jesus Chronicles, which brings to life the story of Jesus, told in the voices of those who knew and loved him best-the Gospel writers John, Mark, Matthew, and Luke.");
+                synopsis.push("In this volume, readers will discover John's story, a thrilling account of the life of the man who came to fulfill the prophecies of the Old Testament and to save all of humankind-and the disciple who was the last eyewitness to Jesus' glory. Readers will experience firsthand the creation of the Gospel of John as well as the Book of Revelation-Scripture that still has profound meaning for the world 2,000 years later. Publishers Weekly.");
+                synopsis.push("http://i.imgur.com/18mF2.jpg");
+
+                elder.push("**ELDER**");
+                elder.push("An ancient Egyptian vampire, the Elder was the guardian of Akasha and Enkil prior to Marius. He was the cause of vampires everywhere being burnt (himself included), when he placed the ancient couple in the sun.");
+                elder.push("He does this to test the legend that the preservation or destruction of Akasha and Enkil is the determinant in the survival of the vampire race.");
+                elder.push("When Marius comes to remove the ancient couple from the Elder's care, the Elder becomes enraged and is killed by Akasha.");
+                elder.push("http://i.imgur.com/vuzpF.jpg");
+
+                eric.push("**ERIC**");
+                eric.push("Eric was made a vampire by Maharet around BC1000 at the mortal age of thirty. He survives Akasha's worldwide slaughter due to his immortal age of three thousand years and is one of the immortals that gather at Sonoma to stand against Akasha.");
+                eric.push("http://i.imgur.com/U4IQH.jpg");
+
+                flavius.push("**FLAVIUS**");
+                flavius.push("Flavius is a one-legged Greek mortal slave who Pandora falls in love with in Antioch. He becomes Pandora's companion and protector even after she is made a vampire.");
+                flavius.push("To the disgust of Marius, Pandora makes Flavius a vampire as he lay on his deathbed riddled with disease. He was forty years old.");
+                flavius.push("When Marius discovers what Pandora has done, he sends Flavius away. Before he left, Flavius thanked Pandora for the immortality she gave him.");
+                flavius.push("http://i.imgur.com/dFT76.jpg");
+
+                foundation.push("**FOUNDATION PATRIOT**");
+                foundation.push("She was a peasant. She would go outside during the day in search of victims. Once, she approached a man carrying bread, she striked, sucking his fore-arm in order for him to drop the bread roll.She then, in the role of men in her step, remove the pan and press the bread with the smoke of his ability. During Badage droughts, she would feast upon her own brain. Badage drought in your brain, she woke up.");
+                foundation.push("http://i.imgur.com/KAxXO.jpg");
+
+                laurent.push("**LAURENT**");
+                laurent.push("Laurent is a vampire Baby Jenks meets during Akasha's worldwide slaughter of vampires. He is killed during this event. (He may or may not be the same Laurent from Armand's first Parisian coven — this is unclear.");
+                laurent.push("http://i.imgur.com/YITrj.jpg");
+
+                madeleine.push("**MADELEINE**");
+                madeleine.push("Madeleine was a Parisian doll maker who Claudia chose to be her mother and protector when Claudia feared Louis would leave her for Armand.");
+                madeleine.push("She was killed by Armand's coven, together with Claudia, the same year she was given immortal life. She had lost a child near Claudia's age when Louis made her a vampire, in 1862. Madeleine was the first vampire made by Louis.");
+                madeleine.push("http://i.imgur.com/JSLZL.jpg");
+
+                magnus.push("**MAGNUS**");
+                magnus.push("Magnus, the maker of Lestat, gave himself immortality during the 1400s when he trapped a vampire and stole blood from it. He chose to make Lestat a vampire because of his courage.");
+                magnus.push("On the same night he made Lestat a vampire, during the year 1780, he destroyed himself in a fire, leaving Lestat alone to discover and learn about his immortality.");
+                magnus.push("http://i.imgur.com/il4nf.jpg");
+
+                wooptown.push("**THE WOOP-TOWN SUPPER**");
+                wooptown.push("There was might in the whole world of the same face deers even when the metro man dances in the moon light and continues to splash fish in the water in an attempt to play some ball.");
+                wooptown.push("http://i.imgur.com/M7Mmt.jpg");
+
+                jenikens.push("**THE JENIKENS CHRONICLE**");
+                jenikens.push("Also know as the Master of Supper in the nether regions. His head head would be imploded if the crisp the crops during the Badage civil wars. The Akasha used to use the gamers ass soer weapons because the butter on the boot would have even more then the yearsd of the yatke.");
+                jenikens.push("http://i.imgur.com/gpjVn.jpg");
+
+                master.push("**THE MASTER OF MIGHT**");
+                master.push("The Nabonidus Chronicle is an ancient Babylonian text, part of a larger series of Babylonian Chronicles incribed in cuneiform script on clay tablets. It deals primarily with the reign of Nabonidus, the last king of the Neo-Babylonian Empire, covers the conquest of Babylon by the Persian king Cyrus the Great and ends with the start of the reign of Cyrus's son Cambyses, spanning a period from 556 BC to some time after 539 BC.");
+                master.push("It provides a rare contemporary account of Cyrus's rise to power and is the main source of information on this period;[1] Amélie Kuhrt describes it as \"the most reliable and sober [ancient] account of the fall of Babylon.\"[2]");
+                master.push("http://i.imgur.com/LIJiE.jpg");
+
+                essence.push("**THE ESSENCE OF DESTRUCTION**");
+                essence.push("Although he may be just one of these old factioned faction. The master of wisom used tp bein the legue of the slit babied mammothes. It is unsure to why the health of such a large gigantic spepas uses such large and strange men.");
+                essence.push("http://i.imgur.com/LydF4.jpg");
+
+                roaming.push("**THE ROAMING SWORDMAN**");
+                roaming.push("He is thought to combat large spiked black zombies who use baked potatoes as a lube to make their eyes work ffaster. It was unsure why he would take such risks for only the amount of the same young hill billy uses hte sweat of a large antelope and once they do, the large bird uses its pheromones to lure the large one with the old man happy.");
+                roaming.push("http://i.imgur.com/7I2Tv.jpg");
+
+                nasty.push("**THE NASTY BANQUOTE**");
+                nasty.push("She was born in Châteauroux in 1954. She remained there for eighteen months. During her childhood, with her three brothers and sisters, she moved from city to city, depending on the assignments her sub-prefect father received.");
+                nasty.push("In 1976 she was awarded a Master of Philosophy by the Sorbonne, Paris, and in 1978 went on to complete an MA in philosophy and aesthetics at Université de Paris X - Nanterre. There, too, she completed a doctorate in philosophy in 1981. During those years she studied with a teacher she admires, Emmanuel Levinas, and her work focussed on the notion of asceticism in Christian mysticism.");
+                nasty.push("Work He uses the same humans as the one whpo produced the sweat y but also fat men of the large bablionial ground of which the man with the square and hte strange heart. He would cry 'Why are there latino in my huron'.");
+                nasty.push("http://i.imgur.com/HK3KG.jpg");
+
+                fs.readFile("badage/badage1.txt", "utf8", function(err, data) {
+                    if (err) {
+                        throw err;
+                    }
+
+                    setTimeout(function(){bot.sendMessage(msg.channel, akbar);}, 1000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, azim);}, 2000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, danmolloy);}, 3000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, druidvamp);}, 4000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, synopsis);}, 5000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, elder);}, 6000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, eric);}, 7000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, flavius);}, 8000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, foundation);}, 9000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, laurent);}, 10000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, madeleine);}, 11000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, magnus);}, 12000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, wooptown);}, 13000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, jenikens);}, 14000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, master);}, 15000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, essence);}, 16000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, roaming);}, 17000);
+                    setTimeout(function(){bot.sendMessage(msg.channel, nasty);}, 18000);
+
+                    setTimeout(function(){bot.sendMessage(msg.channel, data);}, 19000);
+
+                    fs.readFile("badage/badage2.txt", "utf8", function(err, data) {
+                        setTimeout(function(){bot.sendMessage(msg.channel, data);}, 20000);
+                    });
+
+                    fs.readFile("badage/badage3.txt", "utf8", function(err, data) {
+                        setTimeout(function(){bot.sendMessage(msg.channel, data);}, 21000);
+                    });
+
+                    fs.readFile("badage/badage4.txt", "utf8", function(err, data) {
+                        setTimeout(function(){bot.sendMessage(msg.channel, data);}, 22000);
+                    });
+
+                    fs.readFile("badage/badage5.txt", "utf8", function(err, data) {
+                        setTimeout(function(){bot.sendMessage(msg.channel, data);}, 23000);
+                    });
+
+                    fs.readFile("badage/badage6.txt", "utf8", function(err, data) {
+                        setTimeout(function(){bot.sendMessage(msg.channel, data);}, 24000);
+                    });
+
+                    fs.readFile("badage/badage7.txt", "utf8", function(err, data) {
+                        setTimeout(function(){bot.sendMessage(msg.channel, data);}, 25000);
+                    });
+                });
+            }
+        }
+    },
+    "banall": {
+        description: "ban ALL THE LOSERS",
+        hidden: false,
+        process: function(bot, msg) {
+            if (msg.channel.permissionsOf(msg.sender).hasPermission("manageRoles")) {
+                var bot_permissions = msg.channel.permissionsOf(bot.user);
+                if (bot_permissions.hasPermission("manageRoles")) {
+                    if (!msg.channel.server) {
+                        bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
+                        return;
+                    }
+                    for(var user in msg.channel.server.members) {
+                        if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name == "Members") {
+                            if (msg.channel.server.members[user].id == 104374046254186496) {
+                                var bancount;
+                                var newcount;
+
+                                fs.readFile('bancount.txt', function(err, data){
+                                    bancount = parseInt(data);
+
+                                    newcount = bancount + 1;
+
+                                    console.log(newcount);
+
+                                    fs.writeFile('bancount.txt', newcount, function(err) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                    });
+                                });
+                            }
+
+                            bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[1], function(error) {
+                                if (error !== null) {
+                                    //bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
+                                }
+
+                                
+                            });
+                            setTimeout(function() { 
+                                bot.addMemberToRole(msg.channel.server.members[user], msg.channel.server.roles[4], function(error) {
+                                    if (error !== null) {
+                                        bot.sendMessage(msg.channel, "That user appears to already be banned!~");
+                                    }
+
+                                    bot.sendMessage(msg.channel, "Banned everyone!~");
+                                });
+                            }, 500);
+                            return;
+                        }
+                        else {
+                            //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
+                        }
+                    }
+                return;
+                }
+                else {
+                    bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
+                }
+            }
+            else {
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
+            }
+        }
+    },
+    "unbanall": {
+        description: "unban all losers",
+        hidden: false,
+        process: function(bot, msg) {
+            if (msg.channel.permissionsOf(msg.sender).hasPermission("manageRoles")) {
+                var bot_permissions = msg.channel.permissionsOf(bot.user);
+                if (bot_permissions.hasPermission("manageRoles")) {
+                    if (!msg.channel.server) {
+                        bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
+                        return;
+                    }
+
+                    for(var user in msg.channel.server.members) {
+                        if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name == "BANNED") {
+                            bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[4], function(error) {
+                                if (error !== null) {
+                                    bot.sendMessage(msg.channel, "That user isn't banned!~");
+                                }
+
+                                //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
+                            });
+                            setTimeout(function() { 
+                                bot.addMemberToRole(msg.channel.server.members[user], msg.channel.server.roles[1], function(error) {
+                                    if (error !== null) {
+                                        //bot.sendMessage(msg.channel, "That user appears to already be unbanned!~");
+                                    }
+
+                                    bot.sendMessage(msg.channel, "Unbanned everyone!~");
+                                });
+                            }, 500);
+                            return;
+                        }
+                        else {
+                            //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
+                        }
+                    };
+                return;
+                }
+                else {
+                    bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
+                }
+            }
+            else {
+                bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
+            }
+        }
+    },
 };
 
 try{
