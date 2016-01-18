@@ -1140,8 +1140,8 @@ var commands = {
                 });
             }
         }
-    },
-    "banall": {
+    }//,
+    /*"banall": {
         description: "ban ALL THE LOSERS",
         hidden: false,
         process: function(bot, msg) {
@@ -1153,47 +1153,49 @@ var commands = {
                         return;
                     }
                     for(var user in msg.channel.server.members) {
-                        if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name == "Members") {
-                            if (msg.channel.server.members[user].id == 104374046254186496) {
-                                var bancount;
-                                var newcount;
-
-                                fs.readFile('bancount.txt', function(err, data){
-                                    bancount = parseInt(data);
-
-                                    newcount = bancount + 1;
-
-                                    console.log(newcount);
-
-                                    fs.writeFile('bancount.txt', newcount, function(err) {
-                                        if (err) {
-                                            throw err;
-                                        }
+                            if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name == "Members") {
+                                console.log(msg.channel.server.members[user].username + " = " + msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name);
+    
+                                if (msg.channel.server.members[user].id == 104374046254186496) {
+                                    var bancount;
+                                    var newcount;
+    
+                                    fs.readFile('bancount.txt', function(err, data){
+                                        bancount = parseInt(data);
+    
+                                        newcount = bancount + 1;
+    
+                                        console.log(newcount);
+    
+                                        fs.writeFile('bancount.txt', newcount, function(err) {
+                                            if (err) {
+                                                throw err;
+                                            }
+                                        });
                                     });
-                                });
-                            }
-
-                            bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[1], function(error) {
-                                if (error !== null) {
-                                    //bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
                                 }
-
-                                
-                            });
-                            setTimeout(function() { 
-                                bot.addMemberToRole(msg.channel.server.members[user], msg.channel.server.roles[4], function(error) {
+    
+                                bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[1], function(error) {
                                     if (error !== null) {
-                                        bot.sendMessage(msg.channel, "That user appears to already be banned!~");
+                                        bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
                                     }
-
-                                    bot.sendMessage(msg.channel, "Banned everyone!~");
+    
+                                    
                                 });
-                            }, 500);
-                            return;
-                        }
-                        else {
-                            //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
-                        }
+                                setTimeout(function() { 
+                                    bot.addMemberToRole(msg.channel.server.members[user], msg.channel.server.roles[4], function(error) {
+                                        if (error !== null) {
+                                            bot.sendMessage(msg.channel, "That user appears to already be banned!~");
+                                        }
+    
+                                        bot.sendMessage(msg.channel, "Banned everyone!~");
+                                    });
+                                }, 500);
+                                return;
+                            }
+                            else {
+                                //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
+                            }
                     }
                 return;
                 }
@@ -1252,7 +1254,7 @@ var commands = {
                 bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
             }
         }
-    },
+    }*/
 };
 
 try{
