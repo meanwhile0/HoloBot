@@ -398,11 +398,27 @@ var commands = {
     },
     "bancount": {
         description: "what's the deal with meanwhile's ban count?",
+        usage: "<meanwhile or xonax>",
         hidden: false,
-        process: function(bot, msg) {
-            fs.readFile('bancount.txt', function(err, data){
-                bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
-            });
+        process: function(bot, msg, suffix) {
+            if (suffix === "meanwhile") {
+                fs.readFile('meanwhilebancount.txt', function(err, data){
+                    bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
+                });
+            }
+            else if (suffix === "xonax") {
+                fs.readFile('xonaxbancount.txt', function(err, data){
+                    bot.sendMessage(msg.channel, "Xonax has been banned " + data + " times!~");
+                });
+            }
+            else {
+                fs.readFile('meanwhilebancount.txt', function(err, data){
+                    bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
+                });
+                fs.readFile('xonaxbancount.txt', function(err, data){
+                    bot.sendMessage(msg.channel, "Xonax has been banned " + data + " times!~");
+                });
+            }
         }
     },
     "loadsa": {
@@ -431,17 +447,36 @@ var commands = {
                     msg.mentions.map(function(user) {
                         if (msg.channel.server.rolesOfUser(user)[0].name == "Members") {
                             if (user.id == 104374046254186496) {
-                                var bancount;
-                                var newcount;
+                                var mwbancount;
+                                var mwnewcount;
 
-                                fs.readFile('bancount.txt', function(err, data){
-                                    bancount = parseInt(data);
+                                fs.readFile('meanwhilebancount.txt', function(err, data){
+                                    mwbancount = parseInt(data);
 
-                                    newcount = bancount + 1;
+                                    mwnewcount = mwbancount + 1;
 
-                                    console.log(newcount);
+                                    console.log(mwnewcount);
 
-                                    fs.writeFile('bancount.txt', newcount, function(err) {
+                                    fs.writeFile('meanwhilebancount.txt', mwnewcount, function(err) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                    });
+                                });
+                            }
+
+                            if (user.id == 123210431757156352) {
+                                var xnbancount;
+                                var xnnewcount;
+
+                                fs.readFile('xonaxbancount.txt', function(err, data) {
+                                    xnbancount = parseInt(data);
+
+                                    xnnewcount = xnbancount + 1;
+
+                                    console.log(xnnewcount);
+
+                                    fs.writeFile('xonaxbancount.txt', xnnewcount, function(err) {
                                         if (err) {
                                             throw err;
                                         }
@@ -1152,52 +1187,42 @@ var commands = {
                         bot.sendMessage(msg.author, "Sorry, but I can't do that in a DM~");
                         return;
                     }
-                    for(var user in msg.channel.server.members) {
-                            if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name == "Members") {
-                                console.log(msg.channel.server.members[user].username + " = " + msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name);
-    
-                                if (msg.channel.server.members[user].id == 104374046254186496) {
-                                    var bancount;
-                                    var newcount;
-    
-                                    fs.readFile('bancount.txt', function(err, data){
-                                        bancount = parseInt(data);
-    
-                                        newcount = bancount + 1;
-    
-                                        console.log(newcount);
-    
-                                        fs.writeFile('bancount.txt', newcount, function(err) {
-                                            if (err) {
-                                                throw err;
-                                            }
-                                        });
-                                    });
-                                }
-    
-                                bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[1], function(error) {
-                                    if (error !== null) {
-                                        bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
-                                    }
-    
-                                    
-                                });
-                                setTimeout(function() { 
-                                    bot.addMemberToRole(msg.channel.server.members[user], msg.channel.server.roles[4], function(error) {
-                                        if (error !== null) {
-                                            bot.sendMessage(msg.channel, "That user appears to already be banned!~");
-                                        }
-    
-                                        bot.sendMessage(msg.channel, "Banned everyone!~");
-                                    });
-                                }, 500);
-                                return;
-                            }
-                            else {
-                                //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
-                            }
+
+                    var user;
+                    for(user in msg.channel.server.members) {
+                        if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name === "Members") {
+                            console.log(msg.channel.server.members[user].username + " = " + msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name);
+
+                            setTimeout(bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[1]), 100);
+
+                            setTimeout(bot.addMemberToRole(msg.channel.server.members[user], msg.channel.server.roles[4]), 200);
+                        }
+                        else {
+                            //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
+                        }
                     }
-                return;
+
+                    if (msg.channel.server.members[user].id == 104374046254186496) {
+                        var bancount;
+                        var newcount;
+
+                        fs.readFile('bancount.txt', function(err, data){
+                            bancount = parseInt(data);
+
+                            newcount = bancount + 1;
+
+                            console.log(newcount);
+
+                            fs.writeFile('bancount.txt', newcount, function(err) {
+                                if (err) {
+                                    throw err;
+                                }
+                            });
+                        });
+                    }
+
+                    bot.sendMessage(msg.channel, "Banned everyone!~");
+                    return;
                 }
                 else {
                     bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
@@ -1224,7 +1249,7 @@ var commands = {
                         if (msg.channel.server.rolesOfUser(msg.channel.server.members[user])[0].name == "BANNED") {
                             bot.removeMemberFromRole(msg.channel.server.members[user], msg.channel.server.roles[4], function(error) {
                                 if (error !== null) {
-                                    bot.sendMessage(msg.channel, "That user isn't banned!~");
+                                    //bot.sendMessage(msg.channel, "That user isn't banned!~");
                                 }
 
                                 //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
@@ -1234,16 +1259,15 @@ var commands = {
                                     if (error !== null) {
                                         //bot.sendMessage(msg.channel, "That user appears to already be unbanned!~");
                                     }
-
-                                    bot.sendMessage(msg.channel, "Unbanned everyone!~");
                                 });
                             }, 500);
-                            return;
                         }
                         else {
                             //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
                         }
-                    };
+                    }
+
+                bot.sendMessage(msg.channel, "Unbanned everyone!~");
                 return;
                 }
                 else {
