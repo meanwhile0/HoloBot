@@ -255,35 +255,42 @@ var commands = {
                     if (suffix) {
                         var isnum = /^\d+$/.test(suffix);
                         if (isnum) {
-                            if ([suffix] < xkcdInfo.num) {
+                            if ([suffix] <= xkcdInfo.num) {
                                 request('http://xkcd.com/' + suffix + '/info.0.json', function (error, response, body) {
                                     if (!error && response.statusCode == 200) {
                                         xkcdInfo = JSON.parse(body);
                                         bot.sendMessage(msg.channel, "Here you go!~\n" + xkcdInfo.img);
-                                    } else {
-                                        Logger.log("warn", "Got an error: ", error, ", status code: ", response.statusCode);
+                                    }
+                                    else {
+                                        console.log("Got an error: ", error, ", status code: ", response.statusCode);
+                                        bot.sendMessage(msg.channel, "Woops! Looks like that comic doesn't exist, or some other problem happened!~");
                                     }
                                 });
-                            } else {
+                            }
+                            else if ([suffix] > xkcdInfo.num) {
                                 bot.sendMessage(msg.channel, "There are only " + xkcdInfo.num + " xkcd comics!~");
                             }
-                        } else {
+                        }
+                        else {
                             bot.sendMessage(msg.channel, xkcdInfo.img);
                         }
-                    } else {
+                    }
+                    else {
                         var xkcdRandom = Math.floor(Math.random() * (xkcdInfo.num - 1)) + 1;
                         request('http://xkcd.com/' + xkcdRandom + '/info.0.json', function (error, response, body) {
                             if (!error && response.statusCode == 200) {
                                 xkcdInfo = JSON.parse(body);
                                 bot.sendMessage(msg.channel, "Here you go!~\n" + xkcdInfo.img);
-                            } else {
-                                Logger.log("warn", "Got an error: ", error, ", status code: ", response.statusCode);
+                            }
+                            else {
+                                console.log("Got an error: ", error, ", status code: ", response.statusCode);
                             }
                         });
                     }
 
-                } else {
-                    Logger.log("warn", "Got an error: ", error, ", status code: ", response.statusCode);
+                }
+                else {
+                    console.log("Got an error: ", error, ", status code: ", response.statusCode);
                 }
             });
         }
