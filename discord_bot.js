@@ -1,6 +1,7 @@
 try {
     var Discord = require("discord.js-indev");
-} catch (e) {
+}
+catch (e) {
     console.log("Please run npm install and ensure it passes with no errors!");
     process.exit();
 }
@@ -8,21 +9,24 @@ try {
 try {
     var yt = require("./youtube_plugin");
     var youtube_plugin = new yt();
-} catch (e) {
+}
+catch (e) {
     console.log("couldn't load youtube plugin!\n" + e.stack);
 }
 
 try {
     var wa = require("./wolfram_plugin");
     var wolfram_plugin = new wa();
-} catch (e) {
+}
+catch (e) {
     console.log("couldn't load wolfram plugin!\n" + e.stack);
 }
 
 // Get authentication data
 try {
     var AuthDetails = require("./auth.json");
-} catch (e) {
+}
+catch (e) {
     console.log("Please create an auth.json like auth.json.example with at least an email and password.");
     process.exit();
 }
@@ -31,7 +35,9 @@ try {
 var Permissions = {};
 try {
     Permissions = require("./permissions.json");
-} catch (e) {}
+}
+catch (e) {}
+
 Permissions.checkPermission = function (user, permission) {
     try {
         var allowed = false;
@@ -39,14 +45,17 @@ Permissions.checkPermission = function (user, permission) {
             if (Permissions.global.hasOwnProperty(permission)) {
                 allowed = Permissions.global[permission] === true;
             }
-        } catch (e) {}
+        }
+        catch (e) {}
         try {
             if (Permissions.users[user.id].hasOwnProperty(permission)) {
                 allowed = Permissions.users[user.id][permission] === true;
             }
-        } catch (e) {}
+        }
+        catch (e) {}
         return allowed;
-    } catch (e) {}
+    }
+    catch (e) {}
     return false;
 };
 
@@ -54,7 +63,8 @@ Permissions.checkPermission = function (user, permission) {
 var Config = {};
 try {
     Config = require("./config.json");
-} catch (e) { //no config file, use defaults
+}
+catch (e) { //no config file, use defaults
     Config.debug = false;
     Config.respondToInvalid = false;
 }
@@ -123,14 +133,18 @@ var commands = {
         process: function (bot, msg, suffix) {
             if (!suffix) {
                 bot.sendMessage(msg.channel, "But you haven't named the waifu!~");
-            } else {
+            }
+            else {
                 if (suffix.toLowerCase() == "holo") {
                     bot.sendMessage(msg.channel, "Oh! That's me! I rate myself a... 10/10!~");
-                } else if (suffix.toLowerCase() == "asuka") {
+                }
+                else if (suffix.toLowerCase() == "asuka") {
                     bot.sendMessage(msg.channel, "Eugh! What a shit waifu! I rate Asuka a 0/10!~");
-                } else if (suffix.toLowerCase() == "hayao" || suffix.toLowerCase() == "hayao miyazaki") {
+                }
+                else if (suffix.toLowerCase() == "hayao" || suffix.toLowerCase() == "hayao miyazaki") {
                     bot.sendMessage(msg.channel, "'Anime was a mistake.' - Hayao Miyazaki");
-                } else {
+                }
+                else {
                     var value = Math.floor(Math.random() * (10 - 1)) + 1;
                     var waifu = suffix.toLowerCase();
                     var file = "waifus.json";
@@ -154,14 +168,16 @@ var commands = {
                                     bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(waifu) + " a... " + value + "/10!~");
                                 });
 
-                            } else {
+                            }
+                            else {
                                 var rating = obj[waifu].rating;
 
                                 bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(waifu) + " a... " + rating + "/10!~");
                             }
                         });
                         //bot.sendMessage(msg.channel, "I rate " + capitalizeFirstLetter(suffix) + " a... " + value + "/10!~");
-                    } else {
+                    }
+                    else {
                         bot.sendMessage(msg.channel, "But that waifu name is far too long!~");
                     }
                 }
@@ -181,7 +197,8 @@ var commands = {
             if (suffix.toLowerCase() == "postal") {
                 bot.sendMessage(msg.channel, "postal? You have good tastes~");
                 return;
-            } else {
+            }
+            else {
                 bot.sendMessage(msg.channel, "You have shit tastes.");
                 return;
             }
@@ -236,7 +253,8 @@ var commands = {
                     var uD = JSON.parse(body);
                     if (uD.result_type !== "no_results") {
                         bot.sendMessage(msg.channel, "Here's a definition!~\n" + suffix + ": " + uD.list[0].definition + " \"" + uD.list[0].example + "\"");
-                    } else {
+                    }
+                    else {
                         bot.sendMessage(msg.channel, suffix + " is so fucked that even Urban Dictionary can't define it!~");
                     }
                 }
@@ -307,16 +325,19 @@ var commands = {
                     if (bot_permissions.hasPermission("manageMessages")) {
                         bot.deleteMessage(msg);
                         return;
-                    } else {
+                    }
+                    else {
                         bot.sendMessage(msg.channel, "*This works best when I have the permission to delete messages!~*");
                     }
                 }
-            } else {
+            }
+            else {
                 bot.sendMessage(msg.channel, "Hehe, no~");
                 if (bot_permissions.hasPermission("manageMessages")) {
                     bot.deleteMessage(msg);
                     return;
-                } else {
+                }
+                else {
                     bot.sendMessage(msg.channel, "*This works best when I have the permission to delete messages!~*");
                 }
             }
@@ -331,7 +352,8 @@ var commands = {
             get_gif(tags, function (id) {
                 if (typeof id !== "undefined") {
                     bot.sendMessage(msg.channel, "http://media.giphy.com/media/" + id + "/giphy.gif [Tags: " + (tags ? tags : "Random GIF") + "]");
-                } else {
+                }
+                else {
                     bot.sendMessage(msg.channel, "Invalid tags, try something different. For example, something that exists [Tags: " + (tags ? tags : "Random GIF") + "]");
                 }
             });
@@ -376,7 +398,8 @@ var commands = {
                     msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
                     bot.sendMessage(msg.channel, msgArray);
                     return;
-                } else {
+                }
+                else {
                     if (user.username == "HoloBot") {
                         msgArray.push("Ooh! That's me!~");
                     }
@@ -400,11 +423,13 @@ var commands = {
                 fs.readFile('meanwhilebancount.txt', function (err, data) {
                     bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
                 });
-            } else if (suffix === "xonax") {
+            }
+            else if (suffix === "xonax") {
                 fs.readFile('xonaxbancount.txt', function (err, data) {
                     bot.sendMessage(msg.channel, "Xonax has been banned " + data + " times!~");
                 });
-            } else {
+            }
+            else {
                 fs.readFile('meanwhilebancount.txt', function (err, data) {
                     bot.sendMessage(msg.channel, "meanwhile has been banned " + data + " times!~");
                 });
@@ -494,15 +519,18 @@ var commands = {
                                 });
                             }, 500);
                             return;
-                        } else {
+                        }
+                        else {
                             //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~");
                         }
                     });
                     return;
-                } else {
+                }
+                else {
                     bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
                 }
-            } else {
+            }
+            else {
                 bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
             }
         }
@@ -542,15 +570,18 @@ var commands = {
                                 });
                             }, 500);
                             return;
-                        } else {
+                        }
+                        else {
                             //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
                         }
                     });
                     return;
-                } else {
+                }
+                else {
                     bot.sendMessage(msg.channel, "Sorry, but I need permissions to manage roles to ban people!~");
                 }
-            } else {
+            }
+            else {
                 bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to ban people!~");
             }
         }
@@ -562,7 +593,8 @@ var commands = {
         process: function (bot, msg, suffix) {
             if (Permissions.checkPermission(msg.author, "eval")) {
                 bot.sendMessage(msg.channel, eval(suffix, bot));
-            } else {
+            }
+            else {
                 bot.sendMessage(msg.channel, msg.author + " doesn't have permission to execute eval!");
             }
         }
@@ -611,7 +643,8 @@ var commands = {
                 if (err) {
                     bot.sendMessage(msg.channel, "Woops! I seem to have encountered a problem with fetching the logs!~");
                     return;
-                } else {
+                }
+                else {
                     var purge = msgs.length;
                     var delcount = 0;
 
@@ -653,7 +686,8 @@ var commands = {
                 setTimeout(function () {
                     process.exit(1);
                 }, 500);
-            } else {
+            }
+            else {
                 bot.sendMessage(msg.channel, "Nice try, but you haven't got permission to restart me!~");
                 return;
             }
@@ -780,7 +814,8 @@ var commands = {
 
                                         bot.sendMessage(msg.channel, msgArray);
                                         return;
-                                    } else if (suffix) {
+                                    }
+                                    else if (suffix) {
                                         if (msg.mentions.length === 0) {
                                             bot.sendMessage(msg.channel, "Please mention the user you want to give a superpower to!~");
                                             return;
@@ -839,11 +874,13 @@ var commands = {
                     if (bot_permissions.hasPermission("manageMessages")) {
                         bot.deleteMessage(msg);
                         return;
-                    } else {
+                    }
+                    else {
                         console.log("denied");
                     }
                 }
-            } else {
+            }
+            else {
                 return;
             }
         }
@@ -907,13 +944,15 @@ var commands = {
                             }
                             bot.sendMessage(msg.channel, "I rate " + msg.sender + "'s laifu a... " + value + "/10!~");
                         });
-                    } else {
+                    }
+                    else {
                         var rating = obj[msg.sender].rating;
 
                         bot.sendMessage(msg.channel, "I rate " + msg.sender + "'s laifu a... " + rating + "/10!~");
                     }
                 });
-            } else {
+            }
+            else {
                 if (msg.mentions.length === 0) {
                     bot.sendMessage(msg.channel, "Please mention the user who's laifu you want to rate!~");
                     return;
@@ -937,7 +976,8 @@ var commands = {
                                 }
                                 bot.sendMessage(msg.channel, "I rate " + user + "'s laifu a... " + value + "/10!~");
                             });
-                        } else {
+                        }
+                        else {
                             var rating = obj[user].rating;
 
                             bot.sendMessage(msg.channel, "I rate " + user + "'s laifu a... " + rating + "/10!~");
@@ -1372,7 +1412,8 @@ bot.on("ready", function () {
             bot.setPlayingGame("MAINTENANCE");
 
             return;
-        } else if (maintenance === "false") {
+        }
+        else if (maintenance === "false") {
             bot.setStatusOnline();
             bot.setPlayingGame("with her tail~");
 
@@ -1400,7 +1441,8 @@ bot.on("message", function (msg) {
                 try {
                     cmdTxt = msg.content.split(" ")[1];
                     suffix = msg.content.substring(bot.user.mention().length + cmdTxt.length + 2);
-                } catch (e) { //no command
+                }
+                catch (e) { //no command
                     bot.sendMessage(msg.channel, "Yes?");
                     return;
                 }
@@ -1437,20 +1479,24 @@ bot.on("message", function (msg) {
                     bot.sendMessage(msg.author, msgArray);
                 });
                 bot.sendMessage(msg.channel, msg.sender + ", I've sent you a DM with a list of my commands!~");
-            } else if (cmd) {
+            }
+            else if (cmd) {
                 try {
                     cmd.process(bot, msg, suffix);
-                } catch (e) {
+                }
+                catch (e) {
                     if (Config.debug) {
                         bot.sendMessage(msg.channel, "command " + cmdTxt + " failed :(\n" + e.stack);
                     }
                 }
-            } else {
+            }
+            else {
                 if (Config.respondToInvalid) {
                     bot.sendMessage(msg.channel, "Invalid command " + cmdTxt);
                 }
             }
-        } else if (msg.author.id != bot.user.id && (msg.content[0] === "-")) {
+        }
+        else if (msg.author.id != bot.user.id && (msg.content[0] === "-")) {
             var tildecount;
             var newcount;
 
@@ -1470,7 +1516,8 @@ bot.on("message", function (msg) {
                 });
             });
             return;
-        } else {
+        }
+        else {
             //message isn't a command or is from us
             //drop our own messages to prevent feedback loops
             if (msg.author == bot.user) {
@@ -1502,7 +1549,8 @@ bot.on("presence", function (user, status, gameId) {
                 bot.sendMessage(channel, message.content);
             }
         }
-    } catch (e) {}
+    }
+    catch (e) {}
 });
 
 function get_gif(tags, func) {
@@ -1529,12 +1577,14 @@ function get_gif(tags, func) {
             console.error("giphy: Got error: " + body);
             console.log(error);
             //console.log(response)
-        } else {
+        }
+        else {
             var responseObj = JSON.parse(body);
             console.log(responseObj.data[0]);
             if (responseObj.data.length) {
                 func(responseObj.data[0].id);
-            } else {
+            }
+            else {
                 func(undefined);
             }
         }
