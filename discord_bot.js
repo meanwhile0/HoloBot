@@ -1257,6 +1257,20 @@ var commands = {
 
             bot.addMemberToRoles(msg.sender, roles);
         }
+    },
+    "reminder": {
+        description: "friendly reminder",
+        hidden: false,
+        process: function (bot, msg) {
+            // this shit is absolutely sickening. this is svinnik's fault
+
+            var msgArray = [];
+
+            msgArray.push("This is a friendly reminder that this is absolutely haram~");
+            msgArray.push("https://www.youtube.com/watch?v=lQNdS1KBA38");
+
+            bot.sendMessage(msg.channel, msgArray);
+        }
     } //,
     /*"banall": {
         description: "ban ALL THE LOSERS",
