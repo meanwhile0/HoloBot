@@ -463,7 +463,7 @@ var commands = {
                         return;
                     }
                     msg.mentions.map(function (user) {
-                        if (msg.channel.server.rolesOfUser(user)[0].name == "Members") {
+                        if (bot.memberHasRole(user, msg.channel.server.roles[1])) {
                             if (user.id == 104374046254186496) {
                                 var mwbancount;
                                 var mwnewcount;
@@ -552,7 +552,7 @@ var commands = {
                         return;
                     }
                     msg.mentions.map(function (user) {
-                        if (msg.channel.server.rolesOfUser(user)[0].name == "BANNED") {
+                        if (bot.memberHasRole(user, msg.channel.server.roles[4])) {
                             bot.removeMemberFromRole(user, msg.channel.server.roles[4], function (error) {
                                 if (error !== null) {
                                     bot.sendMessage(msg.channel, "That user isn't banned!~");
@@ -1262,7 +1262,7 @@ var commands = {
         description: "friendly reminder",
         hidden: false,
         process: function (bot, msg) {
-            // this shit is absolutely sickening. this is svinnik's fault
+            // this shit is absolutely sickening. this is svinnik's fault.
 
             var msgArray = [];
 
