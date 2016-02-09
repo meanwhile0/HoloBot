@@ -515,9 +515,13 @@ var commands = {
                                         bot.sendMessage(msg.channel, "That user appears to already be banned!~");
                                     }
 
+                                    var dateTime = new Date();
+                                    var banTime = dateTime.getDate() + "/" + (dateTime.getMonth() + 1) + "/" + dateTime.getFullYear() + " at " + dateTime.getHours() + ":" + dateTime.getMinutes() + " GMT~";
+
                                     bot.sendMessage(msg.channel, user.username + " has been banned by " + msg.author + "!~");
+                                    bot.sendMessage(msg.channel.server.channels[15], user.username + " has been banned by " + msg.author + " on " + banTime);
                                 });
-                            }, 500);
+                            }, 1000);
                             return;
                         }
                         else {
@@ -566,9 +570,13 @@ var commands = {
                                         bot.sendMessage(msg.channel, "That user appears to already be unbanned!~");
                                     }
 
+                                    var dateTime = new Date();
+                                    var banTime = dateTime.getDate() + "/" + (dateTime.getMonth() + 1) + "/" + dateTime.getFullYear() + " at " + dateTime.getHours() + ":" + dateTime.getMinutes() + " GMT~";
+
                                     bot.sendMessage(msg.channel, user.username + " has been unbanned by " + msg.author + "!~");
+                                    bot.sendMessage(msg.channel.server.channels[15], user.username + " has been unbanned by " + msg.author + " on " + banTime);
                                 });
-                            }, 500);
+                            }, 1000);
                             return;
                         }
                         else {
