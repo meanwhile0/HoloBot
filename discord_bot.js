@@ -926,6 +926,30 @@ var commands = {
             });
         }
     },
+    "paz": {
+        description: "a weapon to surpass metal gear",
+        hidden: false,
+        process: function (bot, msg) {
+            var path = require("path");
+            var imgArray = [];
+
+            fs.readdir("./paz", function (err, dirContents) {
+                for (var i = 0; i < dirContents.length; i++) {
+                    for (var o = 0; o < ext.length; o++) {
+                        if (path.extname(dirContents[i]) === ext[o]) {
+                            imgArray.push(dirContents[i]);
+                        }
+                    }
+                }
+
+                var random = Math.floor(Math.random() * ((imgArray.length + 1) - 1)) + 1;
+
+                bot.sendFile(msg.channel, "./paz/" + random + ".jpg");
+
+                console.log("paz number " + random);
+            });
+        }
+    },
     "ratelaifu": {
         description: "the official user rating system",
         usage: "<@user>",
