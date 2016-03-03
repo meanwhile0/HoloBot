@@ -1,5 +1,5 @@
 try {
-    var Discord = require("discord.js-indev");
+    var Discord = require("discord.js");
 }
 catch (e) {
     console.log("Please run npm install and ensure it passes with no errors!");
