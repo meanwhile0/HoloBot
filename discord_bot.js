@@ -1,5 +1,5 @@
 try {
-    var Discord = require("discord.js-indev");
+    var Discord = require("discord.js");
 }
 catch (e) {
     console.log("Please run npm install and ensure it passes with no errors!");
@@ -462,8 +462,14 @@ var commands = {
                         bot.sendMessage(msg.channel, "Please mention the user that you want to get rid of~");
                         return;
                     }
+
+                    console.log("Passed message checks");
+
                     msg.mentions.map(function (user) {
-                        if (bot.memberHasRole(user, msg.channel.server.roles[1])) {
+                        console.log("Within mentions map");
+
+                        if (msg.channel.server.rolesOfUser(user)[0].name === "Members") {
+                            console.log("Within member role check");
                             if (user.id == 104374046254186496) {
                                 var mwbancount;
                                 var mwnewcount;
@@ -472,8 +478,8 @@ var commands = {
                                     mwbancount = parseInt(data);
 
                                     mwnewcount = mwbancount + 1;
-
-                                    console.log(mwnewcount);
+                                    
+                                    console.log("Incrementing meanwhile's bancount to " + mwnewcount);
 
                                     fs.writeFile('meanwhilebancount.txt', mwnewcount, function (err) {
                                         if (err) {
@@ -492,7 +498,7 @@ var commands = {
 
                                     xnnewcount = xnbancount + 1;
 
-                                    console.log(xnnewcount);
+                                    console.log("Incrementing xonax's bancount to " + xnnewcount);
 
                                     fs.writeFile('xonaxbancount.txt', xnnewcount, function (err) {
                                         if (err) {
@@ -502,26 +508,55 @@ var commands = {
                                 });
                             }
 
-                            bot.removeMemberFromRole(user, msg.channel.server.roles[1], function (error) {
-                                if (error !== null) {
-                                    bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
-                                }
+                            console.log("Passed bancount functions");
 
+                            console.log("About to ban");
 
-                            });
                             setTimeout(function () {
+                                console.log("Within timeout callback");
+
                                 bot.addMemberToRole(user, msg.channel.server.roles[4], function (error) {
                                     if (error !== null) {
                                         bot.sendMessage(msg.channel, "That user appears to already be banned!~");
                                     }
 
+                                    console.log("Adding user to banned role");
+
                                     var dateTime = new Date();
-                                    var banTime = dateTime.getDate() + "/" + (dateTime.getMonth() + 1) + "/" + dateTime.getFullYear() + " at " + dateTime.getHours() + ":" + dateTime.getMinutes() + " GMT~";
+                                    var banTime = dateTime.getDate() + "/" + (dateTime.getMonth() + 1) + "/" + dateTime.getFullYear() + " at " + ((dateTime.getHours()<10?'0':'') + dateTime.getHours()) + ":" + ((dateTime.getMinutes()<10?'0':'') + dateTime.getMinutes()) + " GMT~";
 
                                     bot.sendMessage(msg.channel, user.username + " has been banned by " + msg.author + "!~");
                                     bot.sendMessage(msg.channel.server.channels[15], user.username + " has been banned by " + msg.author + " on " + banTime);
+                                    console.log("Made post in event log");
                                 });
                             }, 1000);
+ 
+
+                            bot.removeMemberFromRole(user, msg.channel.server.roles[1], function (error) {
+                                if (error !== null) {
+                                    bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
+                                }
+                                console.log("Removing user from member role");
+
+                            });
+
+                            //console.log("Removed user from member role");
+
+                            
+                            // Second check, messy shit but it's a bodge.
+                            
+                            /* bot.removeMemberFromRole(user, msg.channel.server.roles[1], function (error) {
+                                if (error !== null) {
+                                    // We don't need to output this message. Just do nothing.
+                                    // bot.sendMessage(msg.channel, "That user isn't in the Members role!~");
+                                }
+                                console.log("Removing user from member role... again.");
+
+                            }); */
+
+                            // As it turns out, this check isn't even needed. Reminder: setTimeout performs the timeout AFTER its callback function...
+
+                            console.log("Ban finished.");
                             return;
                         }
                         else {
@@ -556,14 +591,7 @@ var commands = {
                         return;
                     }
                     msg.mentions.map(function (user) {
-                        if (bot.memberHasRole(user, msg.channel.server.roles[4])) {
-                            bot.removeMemberFromRole(user, msg.channel.server.roles[4], function (error) {
-                                if (error !== null) {
-                                    bot.sendMessage(msg.channel, "That user isn't banned!~");
-                                }
-
-                                //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
-                            });
+                        if (msg.channel.server.rolesOfUser(user)[0].name === "BANNED") {
                             setTimeout(function () {
                                 bot.addMemberToRole(user, msg.channel.server.roles[1], function (error) {
                                     if (error !== null) {
@@ -571,12 +599,20 @@ var commands = {
                                     }
 
                                     var dateTime = new Date();
-                                    var banTime = dateTime.getDate() + "/" + (dateTime.getMonth() + 1) + "/" + dateTime.getFullYear() + " at " + dateTime.getHours() + ":" + dateTime.getMinutes() + " GMT~";
+                                    var banTime = dateTime.getDate() + "/" + (dateTime.getMonth() + 1) + "/" + dateTime.getFullYear() + " at " + ((dateTime.getHours()<10?'0':'') + dateTime.getHours()) + ":" + ((dateTime.getMinutes()<10?'0':'') + dateTime.getMinutes()) + " GMT~";
 
                                     bot.sendMessage(msg.channel, user.username + " has been unbanned by " + msg.author + "!~");
                                     bot.sendMessage(msg.channel.server.channels[15], user.username + " has been unbanned by " + msg.author + " on " + banTime);
                                 });
                             }, 1000);
+
+                            bot.removeMemberFromRole(user, msg.channel.server.roles[4], function (error) {
+                                if (error !== null) {
+                                    bot.sendMessage(msg.channel, "That user isn't banned!~");
+                                }
+
+                                //bot.sendMessage(msg.channel, msg.author +  ", that user is most likely not in this channel!~")
+                            });
                             return;
                         }
                         else {
