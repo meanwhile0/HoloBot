@@ -395,7 +395,7 @@ var commands = {
                     msgArray.push("Requested user: '" + user.username + "'");
                     msgArray.push("ID: '" + user.id + "'");
                     msgArray.push("Status: '" + user.status + "'");
-                    msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
+                    //msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
                     bot.sendMessage(msg.channel, msgArray);
                     return;
                 }
@@ -406,7 +406,7 @@ var commands = {
                     msgArray.push("Requested user: '" + user.username + "'");
                     msgArray.push("ID: '" + user.id + "'");
                     msgArray.push("Status: '" + user.status + "'");
-                    msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
+                    //msgArray.push("Roles: " + msg.channel.server.rolesOfUser(user)[0].name);
                     msgArray.push("Avatar: " + user.avatarURL);
                     bot.sendMessage(msg.channel, msgArray);
                     return;
