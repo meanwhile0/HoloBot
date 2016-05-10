@@ -1,3 +1,6 @@
+# Notice
+This bot is deprecated, please see the newer, better [MomijiBot](https://github.com/NightmareX91/discord-momijibot).
+
 # HoloBot
 A Discord chat bot that will most likely not work for you? I dunno, it's geared towards FP WAYT's Discord server.
 
@@ -44,6 +47,3 @@ Before first run you will need to create an `auth.json` file. The email and pass
 
 To start the bot just run
 `node discord_bot.js`.
-
-# Or...
-if you're too lazy to do any of that shit just join [HoloBot's server](https://discord.gg/0ltfOcHtTFbikkwM) and use `~join-server` for the public version of HoloBot that will most likely work on your server.
